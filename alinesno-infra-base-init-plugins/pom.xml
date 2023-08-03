@@ -8,7 +8,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>alinesno-infra-base-init-facade</artifactId>
+	<artifactId>alinesno-infra-base-init-plugin</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
