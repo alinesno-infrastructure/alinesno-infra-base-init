@@ -6,9 +6,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
  * 种子工程项目基本信息
- * 
- * @author LuoAnDong
- * @since 2021年6月19日 上午6:07:05
+ *
+ * @author luoxiaodong
+ * @version 1.0.0
  */
 @SuppressWarnings("serial")
 @TableName(value = "build_project_info", autoResultMap = true)
