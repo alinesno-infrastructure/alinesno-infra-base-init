@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-    <groupId>com.alinesno.infra.base</groupId>
-    <artifactId>alinesno-infra-base-init-parent</artifactId>
+    	<groupId>com.alinesno.infra.base</groupId>
+    	<artifactId>alinesno-infra-base-init-parent</artifactId>
 		<version>${revision}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
@@ -13,14 +13,14 @@
 	<artifactId>alinesno-infra-base-init-client</artifactId>
 	<packaging>jar</packaging>
 
-    <dependencies>
+	<dependencies>
 
 		<!-- 引用公共门面服务 -->
 		<dependency>
 			<groupId>com.alinesno.infra.base</groupId>
 			<artifactId>alinesno-infra-base-init-facade</artifactId>
 			<version>${revision}</version>
-        </dependency>
+		</dependency>
 
 		<dependency>
 			<groupId>com.alinesno.infra.common</groupId>

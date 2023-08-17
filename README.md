@@ -1,2 +1,2 @@
-# alinesno-infra-base-authority
-权限集成管理，多应用集成管理配置，形成统一的权限配置管理
+# alinesno-infra-base-init
+代码生成器和代码插件管理，应用模板生成
