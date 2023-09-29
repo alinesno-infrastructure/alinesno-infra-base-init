@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <groupId>com.alinesno.infra.base</groupId>
-    <artifactId>alinesno-infra-base-init-parent</artifactId>
+    <artifactId>alinesno-infra-base-starter-parent</artifactId>
     <version>${revision}</version>
 
     <properties>
@@ -22,15 +22,17 @@
 
     <modules>
         <!-- 应用服务 -->
-        <module>alinesno-infra-base-init-facade</module>  <!-- 接口和引用 -->
-        <module>alinesno-infra-base-init-domain</module>  <!-- 领域服务 -->
-        <module>alinesno-infra-base-init-adapter</module> <!-- 适配层 -->
-        <module>alinesno-infra-base-init-api</module>  <!-- 接口服务 -->
-        <module>alinesno-infra-base-init-client</module>  <!-- 对外引用 -->
-        <module>alinesno-infra-base-init-boot</module>  <!-- 启动服务 -->
+        <module>alinesno-infra-base-starter-facade</module>  <!-- 接口和引用 -->
+        <module>alinesno-infra-base-starter-domain</module>  <!-- 领域服务 -->
+        <module>alinesno-infra-base-starter-adapter</module> <!-- 适配层 -->
+        <module>alinesno-infra-base-starter-api</module>  <!-- 接口服务 -->
+        <module>alinesno-infra-base-starter-git</module>  <!-- 接口服务 -->
+        <module>alinesno-infra-base-starter-plugins</module>  <!-- 接口服务 -->
+        <module>alinesno-infra-base-starter-client</module>  <!-- 对外引用 -->
+        <module>alinesno-infra-base-starter-boot</module>  <!-- 启动服务 -->
 
         <!-- 前端服务
-        <module>alinesno-infra-base-init-admin</module>
+        <module>alinesno-infra-base-starter-admin</module>
         -->
     </modules>
 

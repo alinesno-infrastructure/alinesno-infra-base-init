@@ -19,7 +19,7 @@
         <!-- config-agent_start -->
         <dependency>
             <groupId>com.alinesno.infra.base</groupId>
-            <artifactId>alinesno-infra-base-init-agent</artifactId>
+            <artifactId>alinesno-infra-base-starter-agent</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
