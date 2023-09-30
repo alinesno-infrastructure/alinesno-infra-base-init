@@ -13,6 +13,11 @@
 	<artifactId>alinesno-infra-base-starter-facade</artifactId>
 	<packaging>jar</packaging>
 
+	<properties>
+		<lombok.version>1.18.30</lombok.version>
+		<common.lang3.version>3.12.0</common.lang3.version>
+	</properties>
+
 	<dependencies>
 
 		<!-- 引用公共门面服务 -->
@@ -25,7 +30,13 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.12.0</version>
+			<version>${common.lang3.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
 		</dependency>
 
 	</dependencies>

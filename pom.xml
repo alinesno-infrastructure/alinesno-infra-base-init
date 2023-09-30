@@ -27,7 +27,7 @@
         <module>alinesno-infra-base-starter-adapter</module> <!-- 适配层 -->
         <module>alinesno-infra-base-starter-api</module>  <!-- 接口服务 -->
         <module>alinesno-infra-base-starter-git</module>  <!-- 接口服务 -->
-        <module>alinesno-infra-base-starter-plugins</module>  <!-- 接口服务 -->
+        <module>alinesno-infra-base-starter-plugin</module>  <!-- 接口服务 -->
         <module>alinesno-infra-base-starter-client</module>  <!-- 对外引用 -->
         <module>alinesno-infra-base-starter-boot</module>  <!-- 启动服务 -->
 

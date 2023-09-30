@@ -37,6 +37,19 @@
 			<version>${revision}</version>
 		</dependency>
 
+		<!-- git/plugin_start -->
+		<dependency>
+			<groupId>com.alinesno.infra.base</groupId>
+			<artifactId>alinesno-infra-base-starter-git</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alinesno.infra.base</groupId>
+			<artifactId>alinesno-infra-base-starter-plugin</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<!-- git/plugin_end -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
