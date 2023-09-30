@@ -1,11 +1,15 @@
 package com.alinesno.infra.base.starter.entity;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.alinesno.infra.base.starter.CodeGenBaseEntity;
 import com.alinesno.infra.base.starter.constants.GenConstants;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -120,6 +124,12 @@ public class GenTable extends CodeGenBaseEntity {
     @Valid
     private List<GenTableColumn> columns;
 
+    /*
+     * 菜单id列表
+     */
+    @TableField(exist = false)
+    private List<Long> menuIds;
+
     /**
      * 其它生成选项
      */
@@ -158,7 +168,14 @@ public class GenTable extends CodeGenBaseEntity {
     /**
      * 用户数据 
      */
-    private List<String> schemaList ; 
+    private List<String> schemaList ;
+
+    /**
+     * 请求参数
+     */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @TableField(exist = false)
+    private Map<String, Object> params = new HashMap<>();
    
     public void setParentMenuName(String parentMenuName) {
         this.parentMenuName = parentMenuName;

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import lombok.ToString;
 
 /**
@@ -17,6 +18,7 @@ import lombok.ToString;
  * @version 1.0.0
  */
 @ToString
+@Data
 public class CodeGenBaseEntity implements Serializable {
 
     /** 搜索值 */

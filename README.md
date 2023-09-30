@@ -4,3 +4,4 @@
 ## 鸣谢
 
 - 代码生成器引用[ruoyi](http://ruoyi.vip)代码生成器部分改造
+- 代码生成器引用[ruoyi-plus](https://gitee.com/dromara/RuoYi-Vue-Plus)代码生成器部分改造
