@@ -18,12 +18,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class RefreshAccessToken {
 
-//	@Autowired
-//	private IBuildGitService buildGitService ;
-
-	@Autowired
-	private AccessTokenUtils tokenUtil ;
-
 	/**
 	 * 刷新token，每两个小时刷新一次
 	 */
@@ -31,31 +25,6 @@ public class RefreshAccessToken {
 	public void refreshToken() {
 
        log.debug("刷新token");
-
-//		List<BuildGitEntity> list = buildGitService.findAll() ;
-//
-//		for(BuildGitEntity e : list) {
-//
-//			if(e.getRefreshToken() == null) {
-//				continue ;
-//			}
-//
-//			JSONObject accessToken  = null ;
-//
-//			if(GitRepositoryEnum.GITEE.getName().equals(e.getGitType())) {
-//				accessToken = tokenUtil.refreshGiteeToken(e) ;
-//
-//				if(accessToken != null) {
-//
-//					e.setAccessPrivateToken(accessToken.getString("access_token"));
-//					e.setRefreshToken(accessToken.getString("refresh_token"));
-//					e.setExpiresIn(accessToken.getIntValue("expires_in"));
-//
-//					buildGitService.update(e) ;
-//
-//				}
-//			}
-//		}
 
 	}
 

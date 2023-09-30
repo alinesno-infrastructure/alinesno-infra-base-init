@@ -31,3 +31,29 @@ sa-token:
     get-data-url: ${sa-token.host-path}/sso/getData
   sign:
     secret-key:
+
+# git配置
+alinesno:
+  base:
+    starter:
+      plugin:
+        git-plugin-url: http://xxxx
+      git:
+        gitlab:
+          client-id: xxx
+          client-secrets: xxx
+          auth-url: http://xxx
+          redirect-url: http://xxx
+          user-info : http://xxx
+        github:
+          client-id: xxx
+          client-secrets: xxx
+          auth-url: http://xxx
+          redirect-url: http://xxx
+          user-info : http://xxx
+        gitee:
+          client-id: xxx
+          client-secrets: xxx
+          auth-url: http://xxx
+          redirect-url: http://xxx
+          user-info : http://xxx
