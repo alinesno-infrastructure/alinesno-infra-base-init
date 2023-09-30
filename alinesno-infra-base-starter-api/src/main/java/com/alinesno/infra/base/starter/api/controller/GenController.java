@@ -141,9 +141,9 @@ public class GenController extends SuperController {
      * @param tableName 表名
      */
     @GetMapping("/download/{tableName}")
-    public void download(HttpServletResponse response, @PathVariable("tableName") String tableName) throws IOException {
+    public void download(HttpServletResponse response , @RequestHeader("Origin") String origin, @PathVariable("tableName") String tableName) throws IOException {
         byte[] data = genTableService.downloadCode(tableName);
-        genCode(response, data);
+        genCode(response, origin , data);
     }
 
     /**
@@ -174,18 +174,18 @@ public class GenController extends SuperController {
      * @param tables 表名串
      */
     @GetMapping("/batchGenCode")
-    public void batchGenCode(HttpServletResponse response, String tables) throws IOException {
+    public void batchGenCode(HttpServletResponse response, @RequestHeader("Origin") String origin , String tables) throws IOException {
         String[] tableNames = Convert.toStrArray(tables);
         byte[] data = genTableService.downloadCode(tableNames);
-        genCode(response, data);
+        genCode(response, origin , data);
     }
 
     /**
      * 生成zip文件
      */
-    private void genCode(HttpServletResponse response, byte[] data) throws IOException {
+    private void genCode(HttpServletResponse response, String origin , byte[] data) throws IOException {
         response.reset();
-        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Origin", origin);
         response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
         response.setHeader("Content-Disposition", "attachment; filename=\"ruoyi.zip\"");
         response.addHeader("Content-Length", "" + data.length);
