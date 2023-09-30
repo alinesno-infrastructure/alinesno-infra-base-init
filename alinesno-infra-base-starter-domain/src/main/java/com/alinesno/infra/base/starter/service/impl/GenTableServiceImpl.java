@@ -227,7 +227,8 @@ public class GenTableServiceImpl implements IGenTableService {
         GenTable table = baseMapper.selectGenTableById(tableId);
         List<Long> menuIds = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
-            menuIds.add(identifierGenerator.nextId(null).longValue());
+            long d = 1L;
+            menuIds.add(identifierGenerator.nextId(getClass()));
         }
         table.setMenuIds(menuIds);
         // 设置主子表信息
@@ -431,7 +432,7 @@ public class GenTableServiceImpl implements IGenTableService {
         GenTable table = baseMapper.selectGenTableByName(tableName);
         List<Long> menuIds = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
-            menuIds.add(identifierGenerator.nextId(null).longValue());
+            menuIds.add(identifierGenerator.nextId(getClass())) ;
         }
         table.setMenuIds(menuIds);
         // 设置主子表信息
