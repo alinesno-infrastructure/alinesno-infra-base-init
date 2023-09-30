@@ -1,5 +1,6 @@
 package com.alinesno.infra.base.init.mapper;
 
+import com.alinesno.infra.base.init.BaseMapperPlus;
 import com.alinesno.infra.base.starter.entity.GenTable;
 import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
