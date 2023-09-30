@@ -2,7 +2,7 @@
   <div class="app-container acp-dashboard">
 
     <!-- 应用统计 -->
-    <OperationWorkspaceCountStaitcs />
+    <!-- <OperationWorkspaceCountStaitcs /> -->
 
     <!-- 应用套件和状态 -->
     <OperationWorkspaceService />

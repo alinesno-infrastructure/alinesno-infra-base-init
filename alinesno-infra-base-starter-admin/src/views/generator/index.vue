@@ -159,7 +159,7 @@
 </template>
 
 <script setup name="Gen">
-import { listTable, previewTable, delTable, genCode, synchDb } from "@/api/tool/gen";
+import { listTable, previewTable, delTable, genCode, synchDb } from "@/api/generator";
 import router from "@/router";
 import importTable from "./importTable";
 

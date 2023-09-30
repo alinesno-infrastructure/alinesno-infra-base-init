@@ -1,4 +1,4 @@
-package com.alinesno.infra.base.init.demo;
+package com.alinesno.infra.base.starter.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

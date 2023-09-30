@@ -132,25 +132,25 @@ public class CommonLoginController {
     {
 
         Menu dashboardMenu = new Menu("Dashboard", "/dashboard", false, "noRedirect", "Layout", true, new Menu.Meta("仪盘表", "dashboard", false, null), List.of(
-                new Menu("Dashboard", "dashboard", false, "dashboard/index", new Menu.Meta("概览", "dashboard", false, null)),
-                new Menu("Starter", "dashboard", false, "dashboard/index", new Menu.Meta("工程脚架", "dashboard", false, null))
+                new Menu("Dashboard", "index", false, false , "dashboard", new Menu.Meta("概览", "dashboard", false, null)),
+                new Menu("Starter", "build-project/business", false, false , "build-project/business", new Menu.Meta("工程脚架", "druid", false, null))
         ));
 
         Menu systemMenu = new Menu("System", "/system", false, "noRedirect", "Layout", true, new Menu.Meta("功能管理", "system", false, null), List.of(
-                new Menu("Role", "role", false, "system/role/index", new Menu.Meta("应用列表", "peoples", false, null)),
-                new Menu("User", "user", false, "system/user/index", new Menu.Meta("代码生成", "user", false, null)),
-                new Menu("Menu", "menu", false, "system/menu/index", new Menu.Meta("模板市场", "tree-table", false, null)),
-                new Menu("Dept", "dept", false, "system/dept/index", new Menu.Meta("服务部署", "tree", false, null))
+                new Menu("Role", "system/role/index", false, false , "system/role/index", new Menu.Meta("应用列表", "peoples", false, null)),
+                new Menu("User", "generator/index", false, false , "generator/index", new Menu.Meta("代码生成", "user", false, null)),
+                new Menu("Menu", "plugin/index", false, false , "plugin/index", new Menu.Meta("插件市场", "tree-table", false, null)),
+                new Menu("Dept", "system/dept/index", false, false , "system/dept/index", new Menu.Meta("服务部署", "tree", false, null))
         ));
 
         Menu monitorMenu = new Menu("Monitor", "/monitor", false, "noRedirect", "Layout", true, new Menu.Meta("资源配置", "monitor", false, null), List.of(
-                new Menu("Online", "online", false, "monitor/online/index", new Menu.Meta("数据管理", "online", false, null)),
-                new Menu("Job", "job", false, "monitor/job/index", new Menu.Meta("仓库管理", "job", false, null)),
-                new Menu("Druid", "druid", false, "monitor/druid/index", new Menu.Meta("持续集成", "druid", false, null))
+                new Menu("Online", "online", false, false , "monitor/online/index", new Menu.Meta("数据管理", "online", false, null)),
+                new Menu("Job", "job", false, false , "monitor/job/index", new Menu.Meta("仓库管理", "job", false, null)),
+                new Menu("Druid", "druid", false, false , "monitor/druid/index", new Menu.Meta("持续集成", "druid", false, null))
         ));
 
-        List<Menu> menus = List.of(dashboardMenu , systemMenu, monitorMenu) ;
 
+        List<Menu> menus = List.of(dashboardMenu , systemMenu, monitorMenu) ;
         String jsonString = JSON.toJSONString(menus, SerializerFeature.WriteMapNullValue);
 
        return AjaxResult.success(JSONArray.parseArray(jsonString)) ;
