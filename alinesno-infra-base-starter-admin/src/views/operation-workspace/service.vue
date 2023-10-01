@@ -6,10 +6,10 @@
           <div class="panel-header">
             <div class="header-title"><i class="fa-solid fa-file-waveform"></i> 应用服务列表</div>
           </div>
-          <div class="panel-body acp-height-auto">
+          <div class="panel-body acp-height-auto" style="padding: 0;padding-bottom: 10px;">
             <div class="acp-app-list">
               <ul>
-                <li class="app-items" v-for="item in apps" :key="item" style="width:calc(33% - 10px)">
+                <li class="app-items" v-for="item in apps" :key="item" style="width:calc(25% - 10px)">
                   <div class="app-icon">
                     <img :src="item.icon" :alt="item.name" />
                   </div>
@@ -17,19 +17,19 @@
                     <div class="app-item-title">{{ item.name }}</div>
                     <div class="app-item desc">{{ item.desc }}</div>
                   </div>
-                  <div class="app-status">
+                  <!-- <div class="app-status">
                     <el-icon>
                       <CircleCheckFilled />
                     </el-icon> 正常
-                  </div>
+                  </div> -->
                 </li>
               </ul>
             </div>
           </div>
-          <div class="panel-footer">
+          <!-- <div class="panel-footer">
             <div class="footer-link">
             </div>
-          </div>
+          </div> -->
         </div>
       </el-col>
 
@@ -110,7 +110,7 @@ const apps = ref([
   li.app-items .app-item.desc {
     font-size: 12px;
     color: #545b64;
-    margin-top: 10px;
+    margin-top: 5px;
   }
 
   li.app-items {
