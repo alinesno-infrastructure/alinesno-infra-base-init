@@ -129,7 +129,7 @@ const productList = [
                 "hasInner": 0,
                 "linkPath": "http://alinesno-gateway.beta.linesno.com",
                 "prodStatus": "normal",
-                "name": "代码生成器",
+                "name": "项目生成器服务",
                 "id": "053b9e440df2d3a2ddfc714b206c9731"
             },
             {

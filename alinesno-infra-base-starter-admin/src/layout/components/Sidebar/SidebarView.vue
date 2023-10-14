@@ -11,7 +11,7 @@
 export default {
   data () {
     return {
-      currentApplicationName: '代码生成器'
+      currentApplicationName: '项目生成器服务'
     }
   },
   mounted () {

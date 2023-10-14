@@ -436,7 +436,7 @@ const screenJsonList = [
         "prodStatus": "normal",
         "identityStatus": null,
         "tenantId": "0",
-        "name": "代码生成器",
+        "name": "项目生成器服务",
         "hasRecommend": 1,
         "applicationId": null,
         "shortName": null
