@@ -136,11 +136,11 @@ public class CommonLoginController {
                 new Menu("Starter", "build-project/business", false, false , "build-project/business", new Menu.Meta("工程脚架", "druid", false, null))
         ));
 
-        Menu systemMenu = new Menu("System", "/system", false, "noRedirect", "Layout", true, new Menu.Meta("功能管理", "system", false, null), List.of(
-                new Menu("Role", "system/role/index", false, false , "system/role/index", new Menu.Meta("应用列表", "peoples", false, null)),
-                new Menu("User", "generator/index", false, false , "generator/index", new Menu.Meta("代码生成", "user", false, null)),
-                new Menu("Menu", "plugin/index", false, false , "plugin/index", new Menu.Meta("插件市场", "tree-table", false, null)),
-                new Menu("Dept", "system/dept/index", false, false , "system/dept/index", new Menu.Meta("服务部署", "tree", false, null))
+        Menu systemMenu = new Menu("Function", "/function", false, "noRedirect", "Layout", true, new Menu.Meta("功能管理", "system", false, null), List.of(
+                new Menu("Application", "base/starter/application/index", false, false , "base/starter/application/index", new Menu.Meta("应用列表", "peoples", false, null)),
+                new Menu("CodeGenerator", "base/starter/codeGenerator/index", false, false , "base/starter/codeGenerator/index", new Menu.Meta("代码生成", "user", false, null)),
+                new Menu("Plugin", "base/starter/plugin/index", false, false , "base/starter/plugin/index", new Menu.Meta("插件市场", "tree-table", false, null)),
+                new Menu("Deployment", "base/starter/deployment/index", false, false , "base/starter/deployment/index", new Menu.Meta("服务部署", "tree", false, null))
         ));
 
         Menu monitorMenu = new Menu("Monitor", "/monitor", false, "noRedirect", "Layout", true, new Menu.Meta("资源配置", "monitor", false, null), List.of(
