@@ -1,10 +1,9 @@
 package com.alinesno.infra.base.starter.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.alinesno.infra.common.facade.mapper.entity.InfraBaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import cn.afterturn.easypoi.excel.annotation.Excel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

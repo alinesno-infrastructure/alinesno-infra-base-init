@@ -1,6 +1,5 @@
 package com.alinesno.infra.base.starter.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.alinesno.infra.base.starter.bean.GitAccessTokenBean;
 import com.alinesno.infra.base.starter.bean.GitInfoBean;
 import com.alinesno.infra.base.starter.bean.GitRefreshTokeBean;

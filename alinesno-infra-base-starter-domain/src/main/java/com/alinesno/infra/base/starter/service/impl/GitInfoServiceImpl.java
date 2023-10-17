@@ -1,7 +1,7 @@
 package com.alinesno.infra.base.starter.service.impl;
 
-import com.alinesno.infra.base.starter.mapper.GitInfoMapper;
 import com.alinesno.infra.base.starter.entity.GitInfoEntity;
+import com.alinesno.infra.base.starter.mapper.GitInfoMapper;
 import com.alinesno.infra.base.starter.service.IGitInfoService;
 import com.alinesno.infra.common.core.service.impl.IBaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;

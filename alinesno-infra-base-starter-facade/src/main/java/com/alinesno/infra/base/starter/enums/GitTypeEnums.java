@@ -1,6 +1,5 @@
 package com.alinesno.infra.base.starter.enums;
 
-import lombok.Data;
 import lombok.Getter;
 
 @Getter

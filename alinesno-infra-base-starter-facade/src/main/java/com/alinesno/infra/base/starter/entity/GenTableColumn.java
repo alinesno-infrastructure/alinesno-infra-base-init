@@ -1,13 +1,11 @@
 package com.alinesno.infra.base.starter.entity;
 
 
+import cn.hutool.core.util.StrUtil;
 import com.alinesno.infra.base.starter.CodeGenBaseEntity;
 import com.alinesno.infra.common.facade.wrapper.RpcWrapper;
-
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.google.common.base.CaseFormat;
-
-import cn.hutool.core.util.StrUtil;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

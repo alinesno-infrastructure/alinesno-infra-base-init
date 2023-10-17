@@ -1,12 +1,9 @@
 package com.alinesno.infra.base.starter.api.dto;
 
-import com.alinesno.infra.base.starter.api.dto.GroupDto;
 import com.alinesno.infra.common.facade.base.BaseDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
-import java.util.Arrays;
 
 /**
  * 种子工程项目基本信息

@@ -1,6 +1,5 @@
 package com.alinesno.infra.base.starter.git.params;
 
-import com.alibaba.fastjson.JSONObject;
 import com.alinesno.infra.base.starter.bean.GitInfoBean;
 import com.alinesno.infra.base.starter.git.properties.GitProperties;
 import org.springframework.beans.factory.annotation.Autowired;

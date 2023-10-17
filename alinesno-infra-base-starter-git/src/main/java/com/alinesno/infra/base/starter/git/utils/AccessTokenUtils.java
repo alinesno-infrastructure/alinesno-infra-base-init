@@ -1,5 +1,6 @@
 package com.alinesno.infra.base.starter.git.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.alinesno.infra.base.starter.entity.GitInfoEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,8 +10,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import com.alibaba.fastjson.JSONObject;
 
 /**
  * token认证授权

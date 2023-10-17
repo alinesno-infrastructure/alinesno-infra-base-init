@@ -15,6 +15,7 @@
 
 	<dependencies>
 
+
         <!-- 引用服务 -->
 		<dependency>
 			<groupId>com.alinesno.infra.common</groupId>

@@ -1,9 +1,9 @@
 package com.alinesno.infra.base.starter.utils;
 
-import com.alinesno.infra.base.starter.properties.GenConfig;
 import com.alinesno.infra.base.starter.constants.GenConstants;
 import com.alinesno.infra.base.starter.entity.GenTable;
 import com.alinesno.infra.base.starter.entity.GenTableColumn;
+import com.alinesno.infra.base.starter.properties.GenConfig;
 import com.alinesno.infra.common.core.utils.StringUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
