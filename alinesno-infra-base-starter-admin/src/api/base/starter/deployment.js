@@ -1,5 +1,5 @@
-import request from '@/utils/request'
-import { parseStrEmpty } from "@/utils/ruoyi";
+import request from 'alinesno-infra-ui/utils/request'
+import { parseStrEmpty } from "alinesno-infra-ui/utils/ruoyi";
 
 // 查询用户列表
 export function listUser(query) {

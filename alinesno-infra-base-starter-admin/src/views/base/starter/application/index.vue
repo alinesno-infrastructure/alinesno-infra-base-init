@@ -305,7 +305,7 @@
 </template>
 
 <script setup name="Application">
-import { getToken } from "@/utils/auth";
+import { getToken } from "alinesno-infra-ui/utils/auth";
 import { changeApplicationStatus, listApplication, resetApplicationPwd, delApplication, getApplication, updateApplication, addApplication, deptTreeSelect } from "@/api/base/starter/application";
 
 const router = useRouter();

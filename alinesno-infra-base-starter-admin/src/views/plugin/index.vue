@@ -165,8 +165,7 @@ const open = ref(false);
 
 </script>
 
-<style scoped lang="scss">
-@import '@/assets/styles/acp-starter.scss';
+<style scoped lang="scss"> 
 
 .gen-template-box {
   width: 100%;

@@ -1,9 +1,10 @@
-import auth from '@/plugins/auth'
+import auth from 'alinesno-infra-ui/plugins/auth'
 import router, { constantRoutes, dynamicRoutes } from '@/router'
-import { getRouters } from '@/api/menu'
-import Layout from '@/layout/index'
-import ParentView from '@/components/ParentView'
-import InnerLink from '@/layout/components/InnerLink'
+
+import { getRouters } from 'alinesno-infra-ui/api/menu'
+import Layout from 'alinesno-infra-ui/layout/index'
+import ParentView from 'alinesno-infra-ui/components/ParentView'
+import InnerLink from 'alinesno-infra-ui/layout/components/InnerLink'
 
 // 匹配views里面所有的.vue文件
 const modules = import.meta.glob('./../../views/**/*.vue')

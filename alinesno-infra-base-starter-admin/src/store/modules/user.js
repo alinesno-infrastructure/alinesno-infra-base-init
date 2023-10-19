@@ -1,6 +1,6 @@
 import { login, logout, getInfo , goSsoAuthUrl , doLoginByTicket , isSsoLogin } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import defAva from '@/assets/images/profile.jpg'
+import defAva from 'alinesno-infra-ui/assets/images/profile.jpg'
 
 const useUserStore = defineStore(
   'user',

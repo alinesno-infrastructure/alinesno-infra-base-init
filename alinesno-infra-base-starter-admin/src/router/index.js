@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from 'vue-router'
 /* Layout */
 //import Layout from '@/layout/SaaSLayout'
-import Layout from '@/layout'
+import Layout from 'alinesno-infra-ui/layout'
 
 /**
  * Note: 路由配置项
@@ -29,22 +29,22 @@ import Layout from '@/layout'
 export const constantRoutes = [
   {
     path: '/login',
-    component: () => import('@/views/login'),
+    component: () => import('alinesno-infra-ui/views/login'),
     hidden: true
   },
    {
      path: '/sso/login',
-     component: () => import('@/views/loginSso'),
+     component: () => import('alinesno-infra-ui/views/loginSso'),
      hidden: true
    },
   {
     path: "/:pathMatch(.*)*",
-    component: () => import('@/views/error/404'),
+    component: () => import('alinesno-infra-ui/views/error/404'),
     hidden: true
   },
   {
     path: '/401',
-    component: () => import('@/views/error/401'),
+    component: () => import('alinesno-infra-ui/views/error/401'),
     hidden: true
   },
   {
@@ -55,87 +55,35 @@ export const constantRoutes = [
     children: [
       {
         path: '/index',
-        component: () => import('@/views/index'),
+        component: () => import('alinesno-infra-ui/views/index'),
         name: '/index',
         meta: { title: '首页', icon: 'dashboard', affix: true }
+      }, 
+      {
+        path: '/dashboard/smartService',
+        component: () => import('alinesno-infra-ui/views/smartService'),
+        name: '/dashboard/smartService',
+        meta: { title: '智能客服', icon: 'dashboard', affix: true }
       },
-
-      // {
-      //   path: '/dashboard/smartService',
-      //   component: () => import('@/views/smartService'),
-      //   name: '/dashboard/smartService',
-      //   meta: { title: '智能客服', icon: 'dashboard', affix: true }
-      // },
       // {
       //   path: '/dashboard/serviceList',
-      //   component: () => import('@/views/serviceList'),
+      //   component: () => import('alinesno-infra-ui/views/serviceList'),
       //   name: '/dashboard/serviceList',
       //   meta: { title: '服务列表', icon: 'dashboard', affix: true }
-      // },
+      // }, 
       {
         path: '/dashboard/suportTechnique',
-        component: () => import('@/views/suportTechnique'),
+        component: () => import('alinesno-infra-ui/views/suportTechnique'),
         name: '/dashboard/suportTechnique',
         meta: { title: '支持管理', icon: 'dashboard', affix: true }
       },
       {
         path: '/dashboard/learnPanel',
-        component: () => import('@/views/learnPanel'),
+        component: () => import('alinesno-infra-ui/views/learnPanel'),
         name: '/dashboard/learnPanel',
         meta: { title: '学习手册', icon: 'dashboard', affix: true }
       },
-
-      // ->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-      {
-        path: '/createGateway',
-        name: 'createGateway',
-        hidden: true,
-        component: () => import('@/views/gateway/createGateway'),
-        meta: { title: '创建网关服务', icon: 'dashboard', affix: true }
-      },
-      {
-        path: '/gatewayTopology',
-        name: 'gatewayTopology',
-        hidden: true,
-        component: () => import('@/views/gateway/gatewayTopology'),
-        meta: { title: '网关路由拓扑结构', icon: 'dashboard', affix: true }
-      },
-      {
-        path: '/createClient',
-        name: 'createClient',
-        hidden: true,
-        component: () => import('@/views/gateway/createClient'),
-        meta: { title: '创建客户端', icon: 'dashboard', affix: true }
-      },
-      {
-        path: '/addGatewayClient',
-        name: 'addGatewayClient',
-        hidden: true,
-        component: () => import('@/views/gateway/addGatewayClient'),
-        meta: { title: '添加网关客户端', icon: 'dashboard', affix: true }
-      },
-      {
-        path: '/addClientGateway',
-        name: 'addClientGateway',
-        hidden: true,
-        component: () => import('@/views/gateway/addClientGateway'),
-        meta: { title: '添加客户端网关', icon: 'dashboard', affix: true }
-      },
-      {
-        path: '/addGroovyScript',
-        name: 'addGroovyScript',
-        hidden: true,
-        component: () => import('@/views/gateway/addGroovyScript'),
-        meta: { title: '添加规则组件', icon: 'dashboard', affix: true }
-      },
-      {
-        path: '/createBalanced',
-        name: 'createBalanced',
-        hidden: true,
-        component: () => import('@/views/gateway/createBalanced'),
-        meta: { title: '创建负载均衡', icon: 'dashboard', affix: true }
-      },
-
+ 
 
     ]
   },
@@ -147,7 +95,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'profile',
-        component: () => import('@/views/system/user/profile/index'),
+        component: () => import('alinesno-infra-ui/views/system/user/profile/index'),
         name: 'Profile',
         meta: { title: '个人中心', icon: 'user' }
       }

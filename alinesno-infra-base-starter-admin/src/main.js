@@ -5,47 +5,48 @@ import Cookies from 'js-cookie'
 import ElementPlus from 'element-plus'
 import locale from 'element-plus/lib/locale/lang/zh-cn' // 中文语言
 
-import '@/assets/styles/index.scss' // global css
+import 'alinesno-infra-ui/assets/styles/index.scss' // global css
 
 import App from './App'
 import store from './store'
 import router from './router'
-import directive from './directive' // directive
+
+import directive from 'alinesno-infra-ui/directive' // directive
 
 // 注册指令
-import plugins from './plugins' // plugins
-import { download } from '@/utils/request'
+import plugins from 'alinesno-infra-ui/plugins' // plugins
+import { download } from 'alinesno-infra-ui/utils/request'
 
 // svg图标
 import 'virtual:svg-icons-register'
-import SvgIcon from '@/components/SvgIcon'
-import elementIcons from '@/components/SvgIcon/svgicon'
+import SvgIcon from 'alinesno-infra-ui/components/SvgIcon'
+import elementIcons from 'alinesno-infra-ui/components/SvgIcon/svgicon'
 
 import './permission' // permission control
 
-import { useDict } from '@/utils/dict'
-import { parseTime, resetForm, addDateRange, handleTree, selectDictLabel, selectDictLabels } from '@/utils/ruoyi'
+import { useDict } from 'alinesno-infra-ui/utils/dict'
+import { parseTime, resetForm, addDateRange, handleTree, selectDictLabel, selectDictLabels } from 'alinesno-infra-ui/utils/ruoyi'
 
 // 分页组件
-import Pagination from '@/components/Pagination'
+import Pagination from 'alinesno-infra-ui/components/Pagination'
 // 自定义表格工具组件
-import RightToolbar from '@/components/RightToolbar'
+import RightToolbar from 'alinesno-infra-ui/components/RightToolbar'
 // 富文本组件
-import Editor from "@/components/Editor"
+import Editor from "alinesno-infra-ui/components/Editor"
 // 文件上传组件
-import FileUpload from "@/components/FileUpload"
+import FileUpload from "alinesno-infra-ui/components/FileUpload"
 // 图片上传组件
-import ImageUpload from "@/components/ImageUpload"
+import ImageUpload from "alinesno-infra-ui/components/ImageUpload"
 // 图片预览组件
-import ImagePreview from "@/components/ImagePreview"
+import ImagePreview from "alinesno-infra-ui/components/ImagePreview"
 // 自定义树选择组件
-import TreeSelect from '@/components/TreeSelect'
+import TreeSelect from 'alinesno-infra-ui/components/TreeSelect'
 // 字典标签组件
-import DictTag from '@/components/DictTag'
+import DictTag from 'alinesno-infra-ui/components/DictTag'
 
 // 引用全局变量文件
-import GLOBAL_VAR from '@/api/global_variable.js'
-import GLOBAL_FUN from '@/api/global_function.js'
+import GLOBAL_VAR from 'alinesno-infra-ui/api/global_variable.js'
+import GLOBAL_FUN from 'alinesno-infra-ui/api/global_function.js'
 
 const app = createApp(App)
 
