@@ -3,6 +3,8 @@ package com.alinesno.infra.base.starter.entity;
 import com.alinesno.infra.common.facade.mapper.entity.InfraBaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnComment;
+import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -23,6 +25,8 @@ public class ApplicationEntity extends InfraBaseEntity {
     /**
      * 应用名称
      */
+    @ColumnType(length = 128)
+    @ColumnComment("应用名称")
     @TableField
     private String name;
 

@@ -1,7 +1,7 @@
 {
   "name": "alinesno-infra-ui",
-  "version": "1.0.0",
-  "description": "平台ＵＩ公共管理包",
+  "version": "1.0.1",
+  "description": "平台公共管理包",
   "author": "luoxiaodong <luoandon@gmail.com>",
   "license": "Apache-2.0",
   "scripts": { 
@@ -17,6 +17,7 @@
     "element-plus": "2.2.27",
     "file-saver": "2.0.5",
     "fuse.js": "6.6.2",
+    "alinesno-infra-ui":"1.0.0",
     "js-cookie": "3.0.1",
     "jsencrypt": "3.3.1",
     "nprogress": "0.2.0",
