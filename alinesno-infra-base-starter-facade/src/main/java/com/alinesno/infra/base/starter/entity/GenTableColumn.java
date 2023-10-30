@@ -4,7 +4,10 @@ package com.alinesno.infra.base.starter.entity;
 import cn.hutool.core.util.StrUtil;
 import com.alinesno.infra.base.starter.CodeGenBaseEntity;
 import com.alinesno.infra.common.facade.wrapper.RpcWrapper;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnComment;
+import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnType;
 import com.google.common.base.CaseFormat;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -27,108 +30,173 @@ public class GenTableColumn extends CodeGenBaseEntity {
     /**
      * 编号
      */
+    @ColumnType(length = 20)
+    @ColumnComment("编号")
+    @TableField("column_id")
     private Long columnId;
 
     /**
      * 归属表编号
      */
+    @ColumnType(length = 20)
+    @ColumnComment("归属表编号")
+    @TableField("table_id")
     private Long tableId;
 
+    @ColumnType(length = 100)
+    @ColumnComment("表模式")
+    @TableField("table_schema")
     private String tableSchema;
+
     /**
      * 列名称
      */
+    @ColumnType(length = 200)
+    @ColumnComment("列名称")
+    @TableField("column_name")
     private String columnName;
-   
+
     /**
      * 列长度
      */
-    private String columnLength ;
-    
+    @ColumnType(length = 50)
+    @ColumnComment("列长度")
+    @TableField("column_length")
+    private String columnLength;
+
     /**
-     * 小数点保留位数，默认为0时，会去读取该类型实际的小说点默认长度
+     * 小数点保留位数，默认为0时，会去读取该类型实际的小数点默认长度
      */
-    private String decimalColumnLength ;
+    @ColumnType(length = 50)
+    @ColumnComment("小数点保留位数")
+    @TableField("decimal_column_length")
+    private String decimalColumnLength;
 
     /**
      * 列描述
      */
+    @ColumnType(length = 500)
+    @ColumnComment("列描述")
+    @TableField("column_comment")
     private String columnComment;
 
     /**
      * 列类型
      */
+    @ColumnType(length = 100)
+    @ColumnComment("列类型")
+    @TableField("column_type")
     private String columnType;
 
     /**
      * JAVA类型
      */
+    @ColumnType(length = 500)
+    @ColumnComment("JAVA类型")
+    @TableField("java_type")
     private String javaType;
 
     /**
      * JAVA字段名
      */
     @NotBlank(message = "Java属性不能为空")
+    @ColumnType(length = 200)
+    @ColumnComment("JAVA字段名")
+    @TableField("java_field")
     private String javaField;
 
     /**
      * 是否主键（1是）
      */
+    @ColumnType(length = 1)
+    @ColumnComment("是否主键")
+    @TableField("is_pk")
     private String isPk;
 
     /**
      * 是否自增（1是）
      */
+    @ColumnType(length = 1)
+    @ColumnComment("是否自增")
+    @TableField("is_increment")
     private String isIncrement;
 
     /**
      * 是否必填（1是）
      */
+    @ColumnType(length = 1)
+    @ColumnComment("是否必填")
+    @TableField("is_required")
     private String isRequired;
 
     /**
      * 是否为插入字段（1是）
      */
+    @ColumnType(length = 1)
+    @ColumnComment("是否为插入字段")
+    @TableField("is_insert")
     private String isInsert;
 
     /**
      * 是否编辑字段（1是）
      */
+    @ColumnType(length = 1)
+    @ColumnComment("是否编辑字段")
+    @TableField("is_edit")
     private String isEdit;
 
-    public void setDecimalColumnLength(String decimalColumnLength) {
-		this.decimalColumnLength = decimalColumnLength;
-	}
-
-	/**
+    /**
      * 是否列表字段（1是）
      */
+    @ColumnType(length = 1)
+    @ColumnComment("是否列表字段")
+    @TableField("is_list")
     private String isList;
 
     /**
      * 是否查询字段（1是）
      */
+    @ColumnType(length = 1)
+    @ColumnComment("是否查询字段")
+    @TableField("is_query")
     private String isQuery;
 
     /**
      * 查询方式（EQ等于、NE不等于、GT大于、LT小于、LIKE模糊、BETWEEN范围）
      */
+    @ColumnType(length = 200)
+    @ColumnComment("查询方式")
+    @TableField("query_type")
     private String queryType;
 
     /**
      * 显示类型（input文本框、textarea文本域、select下拉框、checkbox复选框、radio单选框、datetime日期控件、upload上传控件、summernote富文本控件）
      */
+    @ColumnType(length = 200)
+    @ColumnComment("显示类型")
+    @TableField("html_type")
     private String htmlType;
 
     /**
      * 字典类型
      */
+    @ColumnType(length = 200)
+    @ColumnComment("字典类型")
+    @TableField("dict_type")
     private String dictType;
 
     /**
      * 排序
      */
+    @ColumnType
+    @ColumnComment("排序")
+    @TableField("sort")
     private Integer sort;
+
+    public void setDecimalColumnLength(String decimalColumnLength) {
+        this.decimalColumnLength = decimalColumnLength;
+    }
+
 
     public void setColumnLength(String columnLength) {
 		this.columnLength = columnLength;
