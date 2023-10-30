@@ -14,14 +14,10 @@
               <span><i class="el-icon-monitor"></i>
                 {{ currentEnvClusterObj.clusterName }}
               </span>
-              <span>
-                <i class="el-icon-link"></i>
-                应用地址: {{ currentEnvClusterObj.apiServerUrl }}
-              </span>
             </div>
           </div>
           <div class="title-desc">
-            集群状态展示集群资源的概览和详情，您可以查看集群资源的监控数据和用量排行情况。
+            {{ currentEnvClusterObj.desc }}
           </div>
         </div>
       </div>
@@ -43,15 +39,17 @@
 <script setup name="Index">
 
 
-import OperationWorkspaceCountStaitcs from './operation-workspace/countStatics.vue'
+// import OperationWorkspaceCountStaitcs from './operation-workspace/countStatics.vue'
+
 import OperationWorkspaceApps from './operation-workspace/apps.vue'
 import OperationWorkspaceService from './operation-workspace/service.vue'
 
 
 const currentEnvClusterObj = ref({
   appName : '项目生成器服务'  ,
-  clusterName: '代码/插件/AIGC/模型等多插件生成机制'  ,
-  apiServerUrl: 'http://portal.infra.linesno.com'
+  clusterName: '代码/插件/模型等多插件生成机制'  ,
+  apiServerUrl: 'http://portal.infra.linesno.com',
+  desc: '自动创建项目的基础结构和初始代码，生成符合特定需求和技术栈的项目模板。'
 })
 
 </script>

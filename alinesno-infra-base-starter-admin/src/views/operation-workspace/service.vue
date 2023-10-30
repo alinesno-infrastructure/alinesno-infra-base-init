@@ -17,26 +17,17 @@
                     <div class="app-item-title">{{ item.name }}</div>
                     <div class="app-item desc">{{ item.desc }}</div>
                   </div>
-                  <!-- <div class="app-status">
-                    <el-icon>
-                      <CircleCheckFilled />
-                    </el-icon> 正常
-                  </div> -->
                 </li>
               </ul>
             </div>
           </div>
-          <!-- <div class="panel-footer">
-            <div class="footer-link">
-            </div>
-          </div> -->
         </div>
       </el-col>
 
       <el-col :span="5">
         <div class="grid-content">
           <div class="panel-header">
-            <div class="header-title"><i class="fa-solid fa-user-nurse"></i> 运维资产套件</div>
+            <div class="header-title"><i class="fa-solid fa-user-nurse"></i> 服务情况概览</div>
           </div>
           <div class="panel-body acp-height-auto">
             <ul class="panel-item-text">
@@ -62,19 +53,16 @@
 <script setup>
 
 const opertionAssets = ref([
-  { id: '1', title: '运维脚本', count: 45 },
-  { id: '2', title: '服务资源', count: 145 },
-  { id: '3', title: '持续集成', count: 65 },
-  { id: '4', title: '自动配置', count: 85 },
-  { id: '5', title: '配置管理', count: 45 },
-  { id: '6', title: '安全监控', count: 45 },
+  { id: '1', title: '集成数据库', count: 45 },
+  { id: '2', title: '生成项目数', count: 145 },
+  { id: '3', title: '集成仓库', count: 65 },
+  { id: '4', title: '功能模块数', count: 85 },
+  { id: '5', title: '插件集成数', count: 45 },
 ])
 
 const apps = ref([
   { icon: 'https://d1by4p17n947rt.cloudfront.net/icon/d88319dfa5d204f019b4284149886c59-7d586ea82f792b61a8c87de60565133d.svg', name: '自动化操作服务', desc: '业务基础服务规划和建设，描述待补充' },
   { icon: 'https://d1by4p17n947rt.cloudfront.net/icon/3da5e8169d2f1426f99fbef54575fe96-6382cb2dfdd2f74c99bc8a64a338358e.svg', name: '一体化安全感触服务', desc: '业务基础服务规划和建设，描述待补充' },
-  { icon: 'https://d1by4p17n947rt.cloudfront.net/icon/3da5e8169d2f1426f99fbef54575fe96-6382cb2dfdd2f74c99bc8a64a338358e.svg', name: '一体化安全感触服务', desc: '业务基础服务规划和建设，描述待补充' },
-  { icon: 'https://d1by4p17n947rt.cloudfront.net/icon/d88319dfa5d204f019b4284149886c59-7d586ea82f792b61a8c87de60565133d.svg', name: '自动化操作服务', desc: '业务基础服务规划和建设，描述待补充' },
   { icon: 'https://d1by4p17n947rt.cloudfront.net/icon/9da5a168cf8194c8ee5ed192a443d563-674375b53bc8ae94f48cfdb5c81e8363.svg', name: '分布式配置中心', desc: '业务基础服务规划和建设，描述待补充' },
   { icon: 'https://d1by4p17n947rt.cloudfront.net/icon/d88319dfa5d204f019b4284149886c59-7d586ea82f792b61a8c87de60565133d.svg', name: '自动化操作服务', desc: '业务基础服务规划和建设，描述待补充' },
   { icon: 'https://d1by4p17n947rt.cloudfront.net/icon/9da5a168cf8194c8ee5ed192a443d563-674375b53bc8ae94f48cfdb5c81e8363.svg', name: '分布式配置中心', desc: '业务基础服务规划和建设，描述待补充' },
