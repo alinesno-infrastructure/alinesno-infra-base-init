@@ -15,12 +15,6 @@
 
 	<dependencies>
 
-		<!-- 引入 actable自动创建表 -->
-		<dependency>
-			<groupId>com.alinesno.infra.common</groupId>
-			<artifactId>alinesno-infra-common-sdk-actable</artifactId>
-			<version>${revision}</version>
-		</dependency>
 
         <!-- 引用服务 -->
 		<dependency>
