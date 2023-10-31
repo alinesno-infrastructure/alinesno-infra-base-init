@@ -15,6 +15,13 @@
 
 	<dependencies>
 
+		<!-- 自动建表服务
+		<dependency>
+			<groupId>com.alinesno.infra.common</groupId>
+			<artifactId>alinesno-infra-common-sdk-actable</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		-->
 
         <!-- 引用服务 -->
 		<dependency>

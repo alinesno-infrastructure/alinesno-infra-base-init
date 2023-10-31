@@ -160,33 +160,25 @@ public class GenTable extends CodeGenBaseEntity {
     /**
      * 主键信息
      */
-    @ColumnType
-    @ColumnComment("主键信息")
-    @TableField("pk_column")
+    @TableField(exist = false)
     private GenTableColumn pkColumn;
 
     /**
      * 子表信息
      */
-    @ColumnType
-    @ColumnComment("子表信息")
-    @TableField("sub_table")
+    @TableField(exist = false)
     private GenTable subTable;
 
     /**
      * 表列信息
      */
-    @ColumnType
-    @ColumnComment("表列信息")
-    @TableField("columns")
+    @TableField(exist = false)
     private List<GenTableColumn> columns;
 
     /**
      * 菜单id列表
      */
-    @ColumnType
-    @ColumnComment("菜单id列表")
-    @TableField("menu_ids")
+    @TableField(exist = false)
     private List<Long> menuIds;
 
     /**
@@ -248,17 +240,13 @@ public class GenTable extends CodeGenBaseEntity {
     /**
      * 用户数据
      */
-    @ColumnType
-    @ColumnComment("用户数据")
-    @TableField("schema_list")
+    @TableField(exist = false)
     private List<String> schemaList;
 
     /**
      * 请求参数
      */
-    @ColumnType
-    @ColumnComment("请求参数")
-    @TableField("params")
+    @TableField(exist = false)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Map<String, Object> params = new HashMap<>();
    
