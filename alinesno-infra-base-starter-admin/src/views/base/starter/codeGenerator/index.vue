@@ -233,7 +233,7 @@
 </template>
 
 <script setup name="CodeGenerator">
-import { addCodeGenerator, changeCodeGeneratorStatus, dataScope, delCodeGenerator, getCodeGenerator, listCodeGenerator, updateCodeGenerator, deptTreeSelect } from "@/api/base/starter/codeGenerator";
+import { addCodeGenerator, changeCodeGeneratorStatus, delCodeGenerator, getCodeGenerator, listCodeGenerator, updateCodeGenerator, deptTreeSelect } from "@/api/base/starter/codeGenerator";
 import { roleMenuTreeselect, treeselect as menuTreeselect } from "@/api/system/menu";
 
 const router = useRouter();
@@ -533,11 +533,11 @@ function handleDataScope(row) {
 function submitDataScope() {
   if (form.value.roleId != undefined) {
     form.value.deptIds = getDeptAllCheckedKeys();
-    dataScope(form.value).then(response => {
-      proxy.$modal.msgSuccess("修改成功");
-      openDataScope.value = false;
-      getList();
-    });
+    // dataScope(form.value).then(response => {
+    //   proxy.$modal.msgSuccess("修改成功");
+    //   openDataScope.value = false;
+    //   getList();
+    // });
   }
 }
 /** 取消按钮（数据权限）*/
