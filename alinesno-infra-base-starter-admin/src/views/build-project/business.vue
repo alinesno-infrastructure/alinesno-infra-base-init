@@ -106,7 +106,7 @@ const form = ref({
 
 .acp-group-header {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 0px;
   margin-bottom: 40px;
 
   .group-title {
