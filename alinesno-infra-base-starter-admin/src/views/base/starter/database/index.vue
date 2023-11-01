@@ -4,9 +4,9 @@
         <!--用户数据-->
         <el-col :span="24" :xs="24">
            <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-              <el-form-item label="用户名称" prop="ApplicationName">
+              <el-form-item label="用户名称" prop="DatabaseName">
                  <el-input
-                    v-model="queryParams.ApplicationName"
+                    v-model="queryParams.DatabaseName"
                     placeholder="请输入用户名称"
                     clearable
                     style="width: 240px"
@@ -60,7 +60,7 @@
                     icon="Edit"
                     :disabled="single"
                     @click="handleUpdate"
-                    v-hasPermi="['system:Application:edit']"
+                    v-hasPermi="['system:Database:edit']"
                  >修改</el-button>
               </el-col>
               <el-col :span="1.5">
@@ -70,7 +70,7 @@
                     icon="Delete"
                     :disabled="multiple"
                     @click="handleDelete"
-                    v-hasPermi="['system:Application:remove']"
+                    v-hasPermi="['system:Database:remove']"
                  >删除</el-button>
               </el-col>
               <el-col :span="1.5">
@@ -79,7 +79,7 @@
                     plain
                     icon="Upload"
                     @click="handleImport"
-                    v-hasPermi="['system:Application:import']"
+                    v-hasPermi="['system:Database:import']"
                  >导入</el-button>
               </el-col>
               <el-col :span="1.5">
@@ -88,16 +88,16 @@
                     plain
                     icon="Download"
                     @click="handleExport"
-                    v-hasPermi="['system:Application:export']"
+                    v-hasPermi="['system:Database:export']"
                  >导出</el-button>
               </el-col>
               <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
            </el-row>
 
-           <el-table v-loading="loading" :data="ApplicationList" @selection-change="handleSelectionChange">
+           <el-table v-loading="loading" :data="DatabaseList" @selection-change="handleSelectionChange">
               <el-table-column type="selection" width="50" align="center" />
-              <el-table-column label="用户编号" align="center" key="ApplicationId" prop="ApplicationId" v-if="columns[0].visible" />
-              <el-table-column label="用户名称" align="center" key="ApplicationName" prop="ApplicationName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
+              <el-table-column label="用户编号" align="center" key="DatabaseId" prop="DatabaseId" v-if="columns[0].visible" />
+              <el-table-column label="用户名称" align="center" key="DatabaseName" prop="DatabaseName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
               <el-table-column label="用户昵称" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
               <el-table-column label="部门" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible" :show-overflow-tooltip="true" />
               <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
@@ -118,17 +118,17 @@
               </el-table-column>
               <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
                  <template #default="scope">
-                    <el-tooltip content="修改" placement="top" v-if="scope.row.ApplicationId !== 1">
-                       <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:Application:edit']"></el-button>
+                    <el-tooltip content="修改" placement="top" v-if="scope.row.DatabaseId !== 1">
+                       <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:Database:edit']"></el-button>
                     </el-tooltip>
-                    <el-tooltip content="删除" placement="top" v-if="scope.row.ApplicationId !== 1">
-                       <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:Application:remove']"></el-button>
+                    <el-tooltip content="删除" placement="top" v-if="scope.row.DatabaseId !== 1">
+                       <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:Database:remove']"></el-button>
                     </el-tooltip>
-                    <el-tooltip content="重置密码" placement="top" v-if="scope.row.ApplicationId !== 1">
-                        <el-button link type="primary" icon="Key" @click="handleResetPwd(scope.row)" v-hasPermi="['system:Application:resetPwd']"></el-button>
+                    <el-tooltip content="重置密码" placement="top" v-if="scope.row.DatabaseId !== 1">
+                        <el-button link type="primary" icon="Key" @click="handleResetPwd(scope.row)" v-hasPermi="['system:Database:resetPwd']"></el-button>
                     </el-tooltip>
-                    <el-tooltip content="分配角色" placement="top" v-if="scope.row.ApplicationId !== 1">
-                       <el-button link type="primary" icon="CircleCheck" @click="handleAuthRole(scope.row)" v-hasPermi="['system:Application:edit']"></el-button>
+                    <el-tooltip content="分配角色" placement="top" v-if="scope.row.DatabaseId !== 1">
+                       <el-button link type="primary" icon="CircleCheck" @click="handleAuthRole(scope.row)" v-hasPermi="['system:Database:edit']"></el-button>
                     </el-tooltip>
                  </template>
               </el-table-column>
@@ -145,7 +145,7 @@
 
      <!-- 添加或修改用户配置对话框 -->
      <el-dialog :title="title" v-model="open" width="600px" append-to-body>
-        <el-form :model="form" :rules="rules" ref="ApplicationRef" label-width="80px">
+        <el-form :model="form" :rules="rules" ref="DatabaseRef" label-width="80px">
            <el-row>
               <el-col :span="12">
                  <el-form-item label="用户昵称" prop="nickName">
@@ -179,12 +179,12 @@
            </el-row>
            <el-row>
               <el-col :span="12">
-                 <el-form-item v-if="form.ApplicationId == undefined" label="用户名称" prop="ApplicationName">
-                    <el-input v-model="form.ApplicationName" placeholder="请输入用户名称" maxlength="30" />
+                 <el-form-item v-if="form.DatabaseId == undefined" label="用户名称" prop="DatabaseName">
+                    <el-input v-model="form.DatabaseName" placeholder="请输入用户名称" maxlength="30" />
                  </el-form-item>
               </el-col>
               <el-col :span="12">
-                 <el-form-item v-if="form.ApplicationId == undefined" label="用户密码" prop="password">
+                 <el-form-item v-if="form.DatabaseId == undefined" label="用户密码" prop="password">
                     <el-input v-model="form.password" placeholder="请输入用户密码" type="password" maxlength="20" show-password />
                  </el-form-item>
               </el-col>
@@ -194,7 +194,7 @@
                  <el-form-item label="用户性别">
                     <el-select v-model="form.sex" placeholder="请选择">
                        <el-option
-                          v-for="dict in sys_Application_sex"
+                          v-for="dict in sys_Database_sex"
                           :key="dict.value"
                           :label="dict.label"
                           :value="dict.value"
@@ -294,15 +294,15 @@
   </div>
 </template>
 
-<script setup name="Application">
+<script setup name="Database">
 import { getToken } from "@/utils/auth";
-import { changeApplicationStatus, listApplication, resetApplicationPwd, delApplication, getApplication, updateApplication, addApplication, deptTreeSelect } from "@/api/base/starter/application";
+import { changeDatabaseStatus, listDatabase, resetDatabasePwd, delDatabase, getDatabase, updateDatabase, addDatabase, deptTreeSelect } from "@/api/base/starter/database";
 
 const router = useRouter();
 const { proxy } = getCurrentInstance();
-// const { sys_normal_disable, sys_Application_sex } = proxy.useDict("sys_normal_disable", "sys_Application_sex");
+// const { sys_normal_disable, sys_Database_sex } = proxy.useDict("sys_normal_disable", "sys_Database_sex");
 
-const ApplicationList = ref([]);
+const DatabaseList = ref([]);
 const open = ref(false);
 const loading = ref(true);
 const showSearch = ref(true);
@@ -330,7 +330,7 @@ const upload = reactive({
  // 设置上传的请求头部
  headers: { Authorization: "Bearer " + getToken() },
  // 上传的地址
- url: import.meta.env.VITE_APP_BASE_API + "/system/Application/importData"
+ url: import.meta.env.VITE_APP_BASE_API + "/system/Database/importData"
 });
 // 列显隐信息
 const columns = ref([
@@ -348,13 +348,13 @@ const data = reactive({
  queryParams: {
    pageNum: 1,
    pageSize: 10,
-   ApplicationName: undefined,
+   DatabaseName: undefined,
    phonenumber: undefined,
    status: undefined,
    deptId: undefined
  },
  rules: {
-   ApplicationName: [{ required: true, message: "用户名称不能为空", trigger: "blur" }, { min: 2, max: 20, message: "用户名称长度必须介于 2 和 20 之间", trigger: "blur" }],
+   DatabaseName: [{ required: true, message: "用户名称不能为空", trigger: "blur" }, { min: 2, max: 20, message: "用户名称长度必须介于 2 和 20 之间", trigger: "blur" }],
    nickName: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
    password: [{ required: true, message: "用户密码不能为空", trigger: "blur" }, { min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur" }],
    email: [{ type: "email", message: "请输入正确的邮箱地址", trigger: ["blur", "change"] }],
@@ -382,9 +382,9 @@ function getDeptTree() {
 /** 查询用户列表 */
 function getList() {
  loading.value = true;
- listApplication(proxy.addDateRange(queryParams.value, dateRange.value)).then(res => {
+ listDatabase(proxy.addDateRange(queryParams.value, dateRange.value)).then(res => {
    loading.value = false;
-   ApplicationList.value = res.rows;
+   DatabaseList.value = res.rows;
    total.value = res.total;
  });
 };
@@ -408,9 +408,9 @@ function resetQuery() {
 };
 /** 删除按钮操作 */
 function handleDelete(row) {
- const ApplicationIds = row.ApplicationId || ids.value;
- proxy.$modal.confirm('是否确认删除用户编号为"' + ApplicationIds + '"的数据项？').then(function () {
-   return delApplication(ApplicationIds);
+ const DatabaseIds = row.DatabaseId || ids.value;
+ proxy.$modal.confirm('是否确认删除用户编号为"' + DatabaseIds + '"的数据项？').then(function () {
+   return delDatabase(DatabaseIds);
  }).then(() => {
    getList();
    proxy.$modal.msgSuccess("删除成功");
@@ -418,15 +418,15 @@ function handleDelete(row) {
 };
 /** 导出按钮操作 */
 function handleExport() {
- proxy.download("system/Application/export", {
+ proxy.download("system/Database/export", {
    ...queryParams.value,
- },`Application_${new Date().getTime()}.xlsx`);
+ },`Database_${new Date().getTime()}.xlsx`);
 };
 /** 用户状态修改  */
 function handleStatusChange(row) {
  let text = row.status === "0" ? "启用" : "停用";
- proxy.$modal.confirm('确认要"' + text + '""' + row.ApplicationName + '"用户吗?').then(function () {
-   return changeApplicationStatus(row.ApplicationId, row.status);
+ proxy.$modal.confirm('确认要"' + text + '""' + row.DatabaseName + '"用户吗?').then(function () {
+   return changeDatabaseStatus(row.DatabaseId, row.status);
  }).then(() => {
    proxy.$modal.msgSuccess(text + "成功");
  }).catch(function () {
@@ -448,26 +448,26 @@ function handleCommand(command, row) {
 };
 /** 跳转角色分配 */
 function handleAuthRole(row) {
- const ApplicationId = row.ApplicationId;
- router.push("/system/Application-auth/role/" + ApplicationId);
+ const DatabaseId = row.DatabaseId;
+ router.push("/system/Database-auth/role/" + DatabaseId);
 };
 /** 重置密码按钮操作 */
 function handleResetPwd(row) {
- proxy.$prompt('请输入"' + row.ApplicationName + '"的新密码', "提示", {
+ proxy.$prompt('请输入"' + row.DatabaseName + '"的新密码', "提示", {
    confirmButtonText: "确定",
    cancelButtonText: "取消",
    closeOnClickModal: false,
    inputPattern: /^.{5,20}$/,
    inputErrorMessage: "用户密码长度必须介于 5 和 20 之间",
  }).then(({ value }) => {
-   resetApplicationPwd(row.ApplicationId, value).then(response => {
+   resetDatabasePwd(row.DatabaseId, value).then(response => {
      proxy.$modal.msgSuccess("修改成功，新密码是：" + value);
    });
  }).catch(() => {});
 };
 /** 选择条数  */
 function handleSelectionChange(selection) {
- ids.value = selection.map(item => item.ApplicationId);
+ ids.value = selection.map(item => item.DatabaseId);
  single.value = selection.length != 1;
  multiple.value = !selection.length;
 };
@@ -478,8 +478,8 @@ function handleImport() {
 };
 /** 下载模板操作 */
 function importTemplate() {
- proxy.download("system/Application/importTemplate", {
- }, `Application_template_${new Date().getTime()}.xlsx`);
+ proxy.download("system/Database/importTemplate", {
+ }, `Database_template_${new Date().getTime()}.xlsx`);
 };
 /**文件上传中处理 */
 const handleFileUploadProgress = (event, file, fileList) => {
@@ -500,9 +500,9 @@ function submitFileForm() {
 /** 重置操作表单 */
 function reset() {
  form.value = {
-   ApplicationId: undefined,
+   DatabaseId: undefined,
    deptId: undefined,
-   ApplicationName: undefined,
+   DatabaseName: undefined,
    nickName: undefined,
    password: undefined,
    phonenumber: undefined,
@@ -513,7 +513,7 @@ function reset() {
    postIds: [],
    roleIds: []
  };
- proxy.resetForm("ApplicationRef");
+ proxy.resetForm("DatabaseRef");
 };
 /** 取消按钮 */
 function cancel() {
@@ -525,7 +525,7 @@ function handleAdd() {
  reset();
  open.value = true;
 
-//  getApplication().then(response => {
+//  getDatabase().then(response => {
 //    postOptions.value = response.posts;
 //    roleOptions.value = response.roles;
 //    open.value = true;
@@ -537,8 +537,8 @@ function handleAdd() {
 /** 修改按钮操作 */
 function handleUpdate(row) {
  reset();
- const ApplicationId = row.ApplicationId || ids.value;
- getApplication(ApplicationId).then(response => {
+ const DatabaseId = row.DatabaseId || ids.value;
+ getDatabase(DatabaseId).then(response => {
    form.value = response.data;
    postOptions.value = response.posts;
    roleOptions.value = response.roles;
@@ -551,16 +551,16 @@ function handleUpdate(row) {
 };
 /** 提交按钮 */
 function submitForm() {
- proxy.$refs["ApplicationRef"].validate(valid => {
+ proxy.$refs["DatabaseRef"].validate(valid => {
    if (valid) {
-     if (form.value.ApplicationId != undefined) {
-       updateApplication(form.value).then(response => {
+     if (form.value.DatabaseId != undefined) {
+       updateDatabase(form.value).then(response => {
          proxy.$modal.msgSuccess("修改成功");
          open.value = false;
          getList();
        });
      } else {
-       addApplication(form.value).then(response => {
+       addDatabase(form.value).then(response => {
          proxy.$modal.msgSuccess("新增成功");
          open.value = false;
          getList();

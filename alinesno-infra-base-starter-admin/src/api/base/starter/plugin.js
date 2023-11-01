@@ -2,99 +2,99 @@ import request from '@/utils/request'
 import { parseStrEmpty } from "@/utils/ruoyi";
 
 // 查询用户列表
-export function listUser(query) {
+export function listPlugin(query) {
   return request({
-    url: '/system/user/list',
-    method: 'get',
+    url: '/api/infra/base/starter/plugin/datatables',
+    method: 'post',
     params: query
   })
 }
 
 // 查询用户详细
-export function getUser(userId) {
+export function getPlugin(userId) {
   return request({
-    url: '/system/user/' + parseStrEmpty(userId),
+    url: '/api/infra/base/starter/plugin/' + parseStrEmpty(userId),
     method: 'get'
   })
 }
 
 // 新增用户
-export function addUser(data) {
+export function addPlugin(data) {
   return request({
-    url: '/system/user',
+    url: '/api/infra/base/starter/plugin',
     method: 'post',
     data: data
   })
 }
 
 // 修改用户
-export function updateUser(data) {
+export function updatePlugin(data) {
   return request({
-    url: '/system/user',
+    url: '/api/infra/base/starter/plugin',
     method: 'put',
     data: data
   })
 }
 
 // 删除用户
-export function delUser(userId) {
+export function delPlugin(userId) {
   return request({
-    url: '/system/user/' + userId,
+    url: '/api/infra/base/starter/plugin/' + userId,
     method: 'delete'
   })
 }
 
 // 用户密码重置
-export function resetUserPwd(userId, password) {
+export function resetPluginPwd(userId, password) {
   const data = {
     userId,
     password
   }
   return request({
-    url: '/system/user/resetPwd',
+    url: '/api/infra/base/starter/plugin/resetPwd',
     method: 'put',
     data: data
   })
 }
 
 // 用户状态修改
-export function changeUserStatus(userId, status) {
+export function changePluginStatus(userId, status) {
   const data = {
     userId,
     status
   }
   return request({
-    url: '/system/user/changeStatus',
+    url: '/api/infra/base/starter/plugin/changeStatus',
     method: 'put',
     data: data
   })
 }
 
 // 查询用户个人信息
-export function getUserProfile() {
+export function getPluginProfile() {
   return request({
-    url: '/system/user/profile',
+    url: '/api/infra/base/starter/plugin/profile',
     method: 'get'
   })
 }
 
 // 修改用户个人信息
-export function updateUserProfile(data) {
+export function updatePluginProfile(data) {
   return request({
-    url: '/system/user/profile',
+    url: '/api/infra/base/starter/plugin/profile',
     method: 'put',
     data: data
   })
 }
 
 // 用户密码重置
-export function updateUserPwd(oldPassword, newPassword) {
+export function updatePluginPwd(oldPassword, newPassword) {
   const data = {
     oldPassword,
     newPassword
   }
   return request({
-    url: '/system/user/profile/updatePwd',
+    url: '/api/infra/base/starter/plugin/profile/updatePwd',
     method: 'put',
     params: data
   })
@@ -103,7 +103,7 @@ export function updateUserPwd(oldPassword, newPassword) {
 // 用户头像上传
 export function uploadAvatar(data) {
   return request({
-    url: '/system/user/profile/avatar',
+    url: '/api/infra/base/starter/plugin/profile/avatar',
     method: 'post',
     data: data
   })
@@ -112,7 +112,7 @@ export function uploadAvatar(data) {
 // 查询授权角色
 export function getAuthRole(userId) {
   return request({
-    url: '/system/user/authRole/' + userId,
+    url: '/api/infra/base/starter/plugin/authRole/' + userId,
     method: 'get'
   })
 }
@@ -120,7 +120,7 @@ export function getAuthRole(userId) {
 // 保存授权角色
 export function updateAuthRole(data) {
   return request({
-    url: '/system/user/authRole',
+    url: '/api/infra/base/starter/plugin/authRole',
     method: 'put',
     params: data
   })
@@ -129,7 +129,7 @@ export function updateAuthRole(data) {
 // 查询部门下拉树结构
 export function deptTreeSelect() {
   return request({
-    url: '/system/user/deptTree',
+    url: '/api/infra/base/starter/plugin/deptTree',
     method: 'get'
   })
 }

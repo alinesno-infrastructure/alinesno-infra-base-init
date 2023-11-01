@@ -2,7 +2,7 @@ import request from '@/utils/request'
 import { parseStrEmpty } from "@/utils/ruoyi";
 
 // 查询用户列表
-export function listUser(query) {
+export function listCodeGenerator(query) {
   return request({
     url: '/system/user/list',
     method: 'get',
@@ -11,7 +11,7 @@ export function listUser(query) {
 }
 
 // 查询用户详细
-export function getUser(userId) {
+export function getCodeGenerator(userId) {
   return request({
     url: '/system/user/' + parseStrEmpty(userId),
     method: 'get'
@@ -19,7 +19,7 @@ export function getUser(userId) {
 }
 
 // 新增用户
-export function addUser(data) {
+export function addCodeGenerator(data) {
   return request({
     url: '/system/user',
     method: 'post',
@@ -28,7 +28,7 @@ export function addUser(data) {
 }
 
 // 修改用户
-export function updateUser(data) {
+export function updateCodeGenerator(data) {
   return request({
     url: '/system/user',
     method: 'put',
@@ -37,7 +37,7 @@ export function updateUser(data) {
 }
 
 // 删除用户
-export function delUser(userId) {
+export function delCodeGenerator(userId) {
   return request({
     url: '/system/user/' + userId,
     method: 'delete'
@@ -45,7 +45,7 @@ export function delUser(userId) {
 }
 
 // 用户密码重置
-export function resetUserPwd(userId, password) {
+export function resetCodeGeneratorPwd(userId, password) {
   const data = {
     userId,
     password
@@ -58,7 +58,7 @@ export function resetUserPwd(userId, password) {
 }
 
 // 用户状态修改
-export function changeUserStatus(userId, status) {
+export function changeCodeGeneratorStatus(userId, status) {
   const data = {
     userId,
     status
@@ -71,7 +71,7 @@ export function changeUserStatus(userId, status) {
 }
 
 // 查询用户个人信息
-export function getUserProfile() {
+export function getCodeGeneratorProfile() {
   return request({
     url: '/system/user/profile',
     method: 'get'
@@ -79,7 +79,7 @@ export function getUserProfile() {
 }
 
 // 修改用户个人信息
-export function updateUserProfile(data) {
+export function updateCodeGeneratorProfile(data) {
   return request({
     url: '/system/user/profile',
     method: 'put',
@@ -88,7 +88,7 @@ export function updateUserProfile(data) {
 }
 
 // 用户密码重置
-export function updateUserPwd(oldPassword, newPassword) {
+export function updateCodeGeneratorPwd(oldPassword, newPassword) {
   const data = {
     oldPassword,
     newPassword

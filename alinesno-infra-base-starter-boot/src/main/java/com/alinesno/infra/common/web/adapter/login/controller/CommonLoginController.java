@@ -145,10 +145,9 @@ public class CommonLoginController {
                 new Menu("Deployment", "base/starter/deployment/index", false, false , "base/starter/deployment/index", new Menu.Meta("服务部署", "tree", false, null))
         ));
 
-        Menu monitorMenu = new Menu("Monitor", "/monitor", false, "noRedirect", "Layout", true, new Menu.Meta("资源配置", "monitor", false, null), List.of(
-                new Menu("Online", "online", false, false , "monitor/online/index", new Menu.Meta("数据管理", "online", false, null)),
-                new Menu("Job", "job", false, false , "monitor/job/index", new Menu.Meta("仓库管理", "job", false, null)),
-                new Menu("Druid", "druid", false, false , "monitor/druid/index", new Menu.Meta("持续集成", "druid", false, null))
+        Menu monitorMenu = new Menu("Config", "/config", false, "noRedirect", "Layout", true, new Menu.Meta("资源配置", "monitor", false, null), List.of(
+                new Menu("Database", "base/starter/database/index", false, false , "base/starter/database/index", new Menu.Meta("数据管理", "online", false, null)),
+                new Menu("Git", "base/starter/git/index", false, false , "base/starter/git/index", new Menu.Meta("仓库管理", "job", false, null))
         ));
 
 

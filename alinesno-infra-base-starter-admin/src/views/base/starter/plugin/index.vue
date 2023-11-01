@@ -10,15 +10,6 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="权限字符" prop="roleKey">
-            <el-input
-               v-model="queryParams.roleKey"
-               placeholder="请输入权限字符"
-               clearable
-               style="width: 240px"
-               @keyup.enter="handleQuery"
-            />
-         </el-form-item>
          <el-form-item label="状态" prop="status">
             <el-select
                v-model="queryParams.status"
@@ -148,7 +139,7 @@
             <el-form-item prop="roleKey">
                <template #label>
                   <span>
-                     <el-tooltip content="控制器中定义的权限字符，如：@PreAuthorize(`@ss.hasRole('admin')`)" placement="top">
+                     <el-tooltip content="控制器中定义的权限字符，如：@PreAuthorize(`@ss.hasPlugin('admin')`)" placement="top">
                         <el-icon><question-filled /></el-icon>
                      </el-tooltip>
                      权限字符
@@ -241,13 +232,13 @@
    </div>
 </template>
 
-<script setup name="Role">
-import { addRole, changeRoleStatus, dataScope, delRole, getRole, listRole, updateRole, deptTreeSelect } from "@/api/system/role";
+<script setup name="Plugin">
+import { addPlugin, changePluginStatus, delPlugin, getPlugin, listPlugin, updatePlugin, deptTreeSelect } from "@/api/base/starter/plugin";
 import { roleMenuTreeselect, treeselect as menuTreeselect } from "@/api/system/menu";
 
 const router = useRouter();
 const { proxy } = getCurrentInstance();
-const { sys_normal_disable } = proxy.useDict("sys_normal_disable");
+const { sys_normal_disable } = ref([]) ; 
 
 const roleList = ref([]);
 const open = ref(false);
@@ -299,7 +290,7 @@ const { queryParams, form, rules } = toRefs(data);
 /** 查询角色列表 */
 function getList() {
   loading.value = true;
-  listRole(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
+  listPlugin(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
     roleList.value = response.rows;
     total.value = response.total;
     loading.value = false;
@@ -320,7 +311,7 @@ function resetQuery() {
 function handleDelete(row) {
   const roleIds = row.roleId || ids.value;
   proxy.$modal.confirm('是否确认删除角色编号为"' + roleIds + '"的数据项?').then(function () {
-    return delRole(roleIds);
+    return delPlugin(roleIds);
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");
@@ -342,7 +333,7 @@ function handleSelectionChange(selection) {
 function handleStatusChange(row) {
   let text = row.status === "0" ? "启用" : "停用";
   proxy.$modal.confirm('确认要"' + text + '""' + row.roleName + '"角色吗?').then(function () {
-    return changeRoleStatus(row.roleId, row.status);
+    return changePluginStatus(row.roleId, row.status);
   }).then(() => {
     proxy.$modal.msgSuccess(text + "成功");
   }).catch(function () {
@@ -415,8 +406,8 @@ function handleAdd() {
 function handleUpdate(row) {
   reset();
   const roleId = row.roleId || ids.value;
-  const roleMenu = getRoleMenuTreeselect(roleId);
-  getRole(roleId).then(response => {
+  const roleMenu = getPluginMenuTreeselect(roleId);
+  getPlugin(roleId).then(response => {
     form.value = response.data;
     form.value.roleSort = Number(form.value.roleSort);
     open.value = true;
@@ -434,7 +425,7 @@ function handleUpdate(row) {
   });
 }
 /** 根据角色ID查询菜单树结构 */
-function getRoleMenuTreeselect(roleId) {
+function getPluginMenuTreeselect(roleId) {
   return roleMenuTreeselect(roleId).then(response => {
     menuOptions.value = response.menus;
     return response;
@@ -492,14 +483,14 @@ function submitForm() {
     if (valid) {
       if (form.value.roleId != undefined) {
         form.value.menuIds = getMenuAllCheckedKeys();
-        updateRole(form.value).then(response => {
+        updatePlugin(form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
           getList();
         });
       } else {
         form.value.menuIds = getMenuAllCheckedKeys();
-        addRole(form.value).then(response => {
+        addPlugin(form.value).then(response => {
           proxy.$modal.msgSuccess("新增成功");
           open.value = false;
           getList();
@@ -513,17 +504,19 @@ function cancel() {
   open.value = false;
   reset();
 }
+
 /** 选择角色权限范围触发 */
-function dataScopeSelectChange(value) {
-  if (value !== "2") {
-    deptRef.value.setCheckedKeys([]);
-  }
-}
+// function dataScopeSelectChange(value) {
+//   if (value !== "2") {
+//     deptRef.value.setCheckedKeys([]);
+//   }
+// }
+
 /** 分配数据权限操作 */
 function handleDataScope(row) {
   reset();
   const deptTreeSelect = getDeptTree(row.roleId);
-  getRole(row.roleId).then(response => {
+  getPlugin(row.roleId).then(response => {
     form.value = response.data;
     openDataScope.value = true;
     nextTick(() => {

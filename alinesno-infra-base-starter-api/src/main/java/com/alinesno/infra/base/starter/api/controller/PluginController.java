@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author luoxiaodong
  */
 @Slf4j
-@Api(tags = "项目模块")
+@Api(tags = "插件模块")
 @RestController
 @Scope("prototype")
 @RequestMapping("/api/infra/base/starter/plugin")
