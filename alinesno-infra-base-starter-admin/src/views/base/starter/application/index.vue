@@ -1,13 +1,13 @@
 <template>
   <div class="app-container">
      <el-row :gutter="20">
-        <!--用户数据-->
+        <!--应用数据-->
         <el-col :span="24" :xs="24">
            <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-              <el-form-item label="用户名称" prop="ApplicationName">
+              <el-form-item label="应用名称" prop="ApplicationName">
                  <el-input
                     v-model="queryParams.ApplicationName"
-                    placeholder="请输入用户名称"
+                    placeholder="请输入应用名称"
                     clearable
                     style="width: 240px"
                     @keyup.enter="handleQuery"
@@ -16,7 +16,7 @@
               <el-form-item label="状态" prop="status">
                  <el-select
                     v-model="queryParams.status"
-                    placeholder="用户状态"
+                    placeholder="应用状态"
                     clearable
                     style="width: 240px"
                  >
@@ -28,16 +28,7 @@
                     />
                  </el-select>
               </el-form-item>
-              <el-form-item label="创建时间" style="width: 308px;">
-                 <el-date-picker
-                    v-model="dateRange"
-                    value-format="YYYY-MM-DD"
-                    type="daterange"
-                    range-separator="-"
-                    start-placeholder="开始日期"
-                    end-placeholder="结束日期"
-                 ></el-date-picker>
-              </el-form-item>
+               
               <el-form-item>
                  <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
                  <el-button icon="Refresh" @click="resetQuery">重置</el-button>
@@ -73,44 +64,30 @@
                     v-hasPermi="['system:Application:remove']"
                  >删除</el-button>
               </el-col>
-              <el-col :span="1.5">
-                 <el-button
-                    type="info"
-                    plain
-                    icon="Upload"
-                    @click="handleImport"
-                    v-hasPermi="['system:Application:import']"
-                 >导入</el-button>
-              </el-col>
-              <el-col :span="1.5">
-                 <el-button
-                    type="warning"
-                    plain
-                    icon="Download"
-                    @click="handleExport"
-                    v-hasPermi="['system:Application:export']"
-                 >导出</el-button>
-              </el-col>
+             
               <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
            </el-row>
 
            <el-table v-loading="loading" :data="ApplicationList" @selection-change="handleSelectionChange">
               <el-table-column type="selection" width="50" align="center" />
-              <el-table-column label="用户编号" align="center" key="ApplicationId" prop="ApplicationId" v-if="columns[0].visible" />
-              <el-table-column label="用户名称" align="center" key="ApplicationName" prop="ApplicationName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
-              <el-table-column label="用户昵称" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
-              <el-table-column label="部门" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible" :show-overflow-tooltip="true" />
-              <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
-              <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
-                 <template #default="scope">
-                    <el-switch
-                       v-model="scope.row.status"
-                       active-value="0"
-                       inactive-value="1"
-                       @change="handleStatusChange(scope.row)"
-                    ></el-switch>
-                 </template>
-              </el-table-column>
+              <el-table-column label="图标" align="center" width="55px" prop="icon">
+                <template slot-scope="scope">
+                  <el-image
+                    style="width: 35px;height: 35px;top: 5px;"
+                    :src="showImg(scope.row.icon)"
+                    fit="scale-down"
+                    align="center"
+                  >
+                  </el-image>
+                </template>
+              </el-table-column> 
+              <el-table-column label="应用名称" align="center" key="ApplicationName" prop="ApplicationName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
+              <el-table-column label="工程名称" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
+              <el-table-column label="应用地址" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible" :show-overflow-tooltip="true" />
+              <el-table-column label="生成" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
+               
+              <el-table-column label="发布" align="center" key="phonenumber" prop="phonenumber" width="120" />
+              <el-table-column label="功能" align="center" key="phonenumber" prop="phonenumber" width="120" />
               <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
                  <template #default="scope">
                     <span>{{ parseTime(scope.row.createTime) }}</span>
@@ -143,13 +120,13 @@
         </el-col>
      </el-row>
 
-     <!-- 添加或修改用户配置对话框 -->
-     <el-dialog :title="title" v-model="open" width="600px" append-to-body>
+     <!-- 添加或修改应用配置对话框 -->
+     <el-dialog :title="title" v-model="open" width="900px" append-to-body>
         <el-form :model="form" :rules="rules" ref="ApplicationRef" label-width="80px">
            <el-row>
               <el-col :span="12">
-                 <el-form-item label="用户昵称" prop="nickName">
-                    <el-input v-model="form.nickName" placeholder="请输入用户昵称" maxlength="30" />
+                 <el-form-item label="应用昵称" prop="nickName">
+                    <el-input v-model="form.nickName" placeholder="请输入应用昵称" maxlength="30" />
                  </el-form-item>
               </el-col>
               <el-col :span="12">
@@ -179,19 +156,19 @@
            </el-row>
            <el-row>
               <el-col :span="12">
-                 <el-form-item v-if="form.ApplicationId == undefined" label="用户名称" prop="ApplicationName">
-                    <el-input v-model="form.ApplicationName" placeholder="请输入用户名称" maxlength="30" />
+                 <el-form-item v-if="form.ApplicationId == undefined" label="应用名称" prop="ApplicationName">
+                    <el-input v-model="form.ApplicationName" placeholder="请输入应用名称" maxlength="30" />
                  </el-form-item>
               </el-col>
               <el-col :span="12">
-                 <el-form-item v-if="form.ApplicationId == undefined" label="用户密码" prop="password">
-                    <el-input v-model="form.password" placeholder="请输入用户密码" type="password" maxlength="20" show-password />
+                 <el-form-item v-if="form.ApplicationId == undefined" label="应用密码" prop="password">
+                    <el-input v-model="form.password" placeholder="请输入应用密码" type="password" maxlength="20" show-password />
                  </el-form-item>
               </el-col>
            </el-row>
            <el-row>
               <el-col :span="12">
-                 <el-form-item label="用户性别">
+                 <el-form-item label="应用性别">
                     <el-select v-model="form.sex" placeholder="请选择">
                        <el-option
                           v-for="dict in sys_Application_sex"
@@ -258,7 +235,7 @@
         </template>
      </el-dialog>
 
-     <!-- 用户导入对话框 -->
+     <!-- 应用导入对话框 -->
      <el-dialog :title="upload.title" v-model="upload.open" width="400px" append-to-body>
         <el-upload
            ref="uploadRef"
@@ -277,7 +254,7 @@
            <template #tip>
               <div class="el-upload__tip text-center">
                  <div class="el-upload__tip">
-                    <el-checkbox v-model="upload.updateSupport" />是否更新已经存在的用户数据
+                    <el-checkbox v-model="upload.updateSupport" />是否更新已经存在的应用数据
                  </div>
                  <span>仅允许导入xls、xlsx格式文件。</span>
                  <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;" @click="importTemplate">下载模板</el-link>
@@ -317,15 +294,15 @@ const deptOptions = ref(undefined);
 const initPassword = ref(undefined);
 const postOptions = ref([]);
 const roleOptions = ref([]);
-/*** 用户导入参数 */
+/*** 应用导入参数 */
 const upload = reactive({
- // 是否显示弹出层（用户导入）
+ // 是否显示弹出层（应用导入）
  open: false,
- // 弹出层标题（用户导入）
+ // 弹出层标题（应用导入）
  title: "",
  // 是否禁用上传
  isUploading: false,
- // 是否更新已经存在的用户数据
+ // 是否更新已经存在的应用数据
  updateSupport: 0,
  // 设置上传的请求头部
  headers: { Authorization: "Bearer " + getToken() },
@@ -334,9 +311,9 @@ const upload = reactive({
 });
 // 列显隐信息
 const columns = ref([
- { key: 0, label: `用户编号`, visible: true },
- { key: 1, label: `用户名称`, visible: true },
- { key: 2, label: `用户昵称`, visible: true },
+ { key: 0, label: `应用编号`, visible: true },
+ { key: 1, label: `应用名称`, visible: true },
+ { key: 2, label: `应用昵称`, visible: true },
  { key: 3, label: `部门`, visible: true },
  { key: 4, label: `手机号码`, visible: true },
  { key: 5, label: `状态`, visible: true },
@@ -354,9 +331,9 @@ const data = reactive({
    deptId: undefined
  },
  rules: {
-   ApplicationName: [{ required: true, message: "用户名称不能为空", trigger: "blur" }, { min: 2, max: 20, message: "用户名称长度必须介于 2 和 20 之间", trigger: "blur" }],
-   nickName: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
-   password: [{ required: true, message: "用户密码不能为空", trigger: "blur" }, { min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur" }],
+   ApplicationName: [{ required: true, message: "应用名称不能为空", trigger: "blur" }, { min: 2, max: 20, message: "应用名称长度必须介于 2 和 20 之间", trigger: "blur" }],
+   nickName: [{ required: true, message: "应用昵称不能为空", trigger: "blur" }],
+   password: [{ required: true, message: "应用密码不能为空", trigger: "blur" }, { min: 5, max: 20, message: "应用密码长度必须介于 5 和 20 之间", trigger: "blur" }],
    email: [{ type: "email", message: "请输入正确的邮箱地址", trigger: ["blur", "change"] }],
    phonenumber: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur" }]
  }
@@ -379,7 +356,7 @@ function getDeptTree() {
    deptOptions.value = response.data;
  });
 };
-/** 查询用户列表 */
+/** 查询应用列表 */
 function getList() {
  loading.value = true;
  listApplication(proxy.addDateRange(queryParams.value, dateRange.value)).then(res => {
@@ -409,7 +386,7 @@ function resetQuery() {
 /** 删除按钮操作 */
 function handleDelete(row) {
  const ApplicationIds = row.ApplicationId || ids.value;
- proxy.$modal.confirm('是否确认删除用户编号为"' + ApplicationIds + '"的数据项？').then(function () {
+ proxy.$modal.confirm('是否确认删除应用编号为"' + ApplicationIds + '"的数据项？').then(function () {
    return delApplication(ApplicationIds);
  }).then(() => {
    getList();
@@ -422,10 +399,10 @@ function handleExport() {
    ...queryParams.value,
  },`Application_${new Date().getTime()}.xlsx`);
 };
-/** 用户状态修改  */
+/** 应用状态修改  */
 function handleStatusChange(row) {
  let text = row.status === "0" ? "启用" : "停用";
- proxy.$modal.confirm('确认要"' + text + '""' + row.ApplicationName + '"用户吗?').then(function () {
+ proxy.$modal.confirm('确认要"' + text + '""' + row.ApplicationName + '"应用吗?').then(function () {
    return changeApplicationStatus(row.ApplicationId, row.status);
  }).then(() => {
    proxy.$modal.msgSuccess(text + "成功");
@@ -433,6 +410,19 @@ function handleStatusChange(row) {
    row.status = row.status === "0" ? "1" : "0";
  });
 };
+
+  function showImg(imgSrc) {
+      console.log("img src = " + imgSrc);
+      if (imgSrc) {
+        if (imgSrc.indexOf("http") == 0) {
+          return imgSrc;
+        }
+        return require('@/asserts/icons/project/' + imgSrc);
+      } else {
+        return require('@/asserts/icons/project/12.svg');
+      }
+    };
+
 /** 更多操作 */
 function handleCommand(command, row) {
  switch (command) {
@@ -458,7 +448,7 @@ function handleResetPwd(row) {
    cancelButtonText: "取消",
    closeOnClickModal: false,
    inputPattern: /^.{5,20}$/,
-   inputErrorMessage: "用户密码长度必须介于 5 和 20 之间",
+   inputErrorMessage: "应用密码长度必须介于 5 和 20 之间",
  }).then(({ value }) => {
    resetApplicationPwd(row.ApplicationId, value).then(response => {
      proxy.$modal.msgSuccess("修改成功，新密码是：" + value);
@@ -473,7 +463,7 @@ function handleSelectionChange(selection) {
 };
 /** 导入按钮操作 */
 function handleImport() {
- upload.title = "用户导入";
+ upload.title = "应用导入";
  upload.open = true;
 };
 /** 下载模板操作 */
@@ -529,7 +519,7 @@ function handleAdd() {
 //    postOptions.value = response.posts;
 //    roleOptions.value = response.roles;
 //    open.value = true;
-//    title.value = "添加用户";
+//    title.value = "添加应用";
 //    form.value.password = initPassword.value;
 //  });
 
@@ -545,7 +535,7 @@ function handleUpdate(row) {
    form.value.postIds = response.postIds;
    form.value.roleIds = response.roleIds;
    open.value = true;
-   title.value = "修改用户";
+   title.value = "修改应用";
    form.password = "";
  });
 };

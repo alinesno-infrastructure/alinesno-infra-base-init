@@ -1,135 +1,68 @@
 import request from '@/utils/request'
 import { parseStrEmpty } from "@/utils/ruoyi";
 
-// 查询用户列表
+/**
+ * 数据库接口操作
+ * 
+ * @author luoxiaodong
+ * @since 1.0.0
+ */
+
+// 接口配置项
+var prefix = '/api/infra/base/starter/application/' ;
+var managerUrl = {
+    datatables : prefix +"datatables" ,
+    createUrl: prefix + 'add' ,
+    saveUrl: prefix + 'save' ,
+    updateUrl: prefix +"modify" ,
+    statusUrl: prefix +"changeStatus" ,
+    cleanUrl: prefix + "clean",
+    detailUrl: prefix +"detail",
+    removeUrl: prefix + "delete" ,
+    exportUrl: prefix + "exportExcel",
+    changeField: prefix + "changeField",
+    downloadfile: prefix + "downloadfile"
+}
+
+// 查询数据库列表
 export function listDatabase(query) {
   return request({
-    url: '/api/infra/base/starter/application/datatables',
+    url: managerUrl.datatables ,
     method: 'post',
     params: query
   })
 }
 
-// 查询用户详细
-export function getDatabase(DatabaseId) {
+// 查询数据库详细
+export function getDatabase(databaseId) {
   return request({
-    url: '/api/infra/base/starter/application/' + parseStrEmpty(DatabaseId),
+    url: managerUrl.detailUrl + '?id=' + parseStrEmpty(databaseId),
     method: 'get'
   })
 }
 
-// 新增用户
+// 新增数据库
 export function addDatabase(data) {
   return request({
-    url: '/api/infra/base/starter/application',
+    url: managerUrl.saveUrl ,
     method: 'post',
     data: data
   })
 }
 
-// 修改用户
+// 修改数据库
 export function updateDatabase(data) {
   return request({
-    url: '/api/infra/base/starter/application',
+    url: managerUrl.updateUrl ,
     method: 'put',
     data: data
   })
 }
 
-// 删除用户
-export function delDatabase(DatabaseId) {
+// 删除数据库
+export function delDatabase(databaseId) {
   return request({
-    url: '/api/infra/base/starter/application/' + DatabaseId,
+    url: managerUrl.removeUrl + '?id=' + parseStrEmpty(databaseId),
     method: 'delete'
-  })
-}
-
-// 用户密码重置
-export function resetDatabasePwd(DatabaseId, password) {
-  const data = {
-    DatabaseId,
-    password
-  }
-  return request({
-    url: '/api/infra/base/starter/application/resetPwd',
-    method: 'put',
-    data: data
-  })
-}
-
-// 用户状态修改
-export function changeDatabaseStatus(DatabaseId, status) {
-  const data = {
-    DatabaseId,
-    status
-  }
-  return request({
-    url: '/api/infra/base/starter/application/changeStatus',
-    method: 'put',
-    data: data
-  })
-}
-
-// 查询用户个人信息
-export function getDatabaseProfile() {
-  return request({
-    url: '/api/infra/base/starter/application/profile',
-    method: 'get'
-  })
-}
-
-// 修改用户个人信息
-export function updateDatabaseProfile(data) {
-  return request({
-    url: '/api/infra/base/starter/application/profile',
-    method: 'put',
-    data: data
-  })
-}
-
-// 用户密码重置
-export function updateDatabasePwd(oldPassword, newPassword) {
-  const data = {
-    oldPassword,
-    newPassword
-  }
-  return request({
-    url: '/api/infra/base/starter/application/profile/updatePwd',
-    method: 'put',
-    params: data
-  })
-}
-
-// 用户头像上传
-export function uploadAvatar(data) {
-  return request({
-    url: '/api/infra/base/starter/application/profile/avatar',
-    method: 'post',
-    data: data
-  })
-}
-
-// 查询授权角色
-export function getAuthRole(DatabaseId) {
-  return request({
-    url: '/api/infra/base/starter/application/authRole/' + DatabaseId,
-    method: 'get'
-  })
-}
-
-// 保存授权角色
-export function updateAuthRole(data) {
-  return request({
-    url: '/api/infra/base/starter/application/authRole',
-    method: 'put',
-    params: data
-  })
-}
-
-// 查询部门下拉树结构
-export function deptTreeSelect() {
-  return request({
-    url: '/api/infra/base/starter/application/deptTree',
-    method: 'get'
   })
 }
