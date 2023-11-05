@@ -9,7 +9,7 @@ import { parseStrEmpty } from "@/utils/ruoyi";
  */
 
 // 接口配置项
-var prefix = '/api/infra/base/starter/application/' ;
+var prefix = '/api/infra/base/starter/datasource/' ;
 var managerUrl = {
     datatables : prefix +"datatables" ,
     createUrl: prefix + 'add' ,
@@ -36,7 +36,7 @@ export function listDatabase(query) {
 // 查询数据库详细
 export function getDatabase(databaseId) {
   return request({
-    url: managerUrl.detailUrl + '?id=' + parseStrEmpty(databaseId),
+    url: managerUrl.detailUrl + '/' + parseStrEmpty(databaseId),
     method: 'get'
   })
 }
@@ -62,7 +62,7 @@ export function updateDatabase(data) {
 // 删除数据库
 export function delDatabase(databaseId) {
   return request({
-    url: managerUrl.removeUrl + '?id=' + parseStrEmpty(databaseId),
+    url: managerUrl.removeUrl + '/' + parseStrEmpty(databaseId),
     method: 'delete'
   })
 }
