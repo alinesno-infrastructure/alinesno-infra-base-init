@@ -256,6 +256,7 @@ function handleUpdate(row) {
   const PluginId = row.id || ids.value;
   getPlugin(PluginId).then(response => {
     form.value = response.data;
+    form.value.PluginId = PluginId
     open.value = true;
     title.value = "修改插件";
   });

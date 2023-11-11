@@ -248,6 +248,7 @@ function handleUpdate(row) {
   const GitId = row.id || ids.value;
   getGit(GitId).then(response => {
     form.value = response.data;
+    form.value.GitId = GitId
     open.value = true;
     title.value = "修改仓库";
   });
@@ -257,13 +258,16 @@ function handleUpdate(row) {
 function submitForm() {
   proxy.$refs["gitRef"].validate(valid => {
     if (valid) {
+      console.log("正在提交")
       if (form.value.GitId != undefined) {
+        console.log("正在修改")
         updateGit(form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
           getList();
         });
       } else {
+        console.log("正在添加")
         addGit(form.value).then(response => {
           proxy.$modal.msgSuccess("新增成功");
           open.value = false;
