@@ -18,8 +18,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BaseStarterApplication {
 
 	public static void main(String[] args) {
-//		MyBatisPlusConfig
-//		InnerInjectPlugin p = new InnerInjectPlugin() ;
 		SpringApplication.run(BaseStarterApplication.class, args);
 	}
 
