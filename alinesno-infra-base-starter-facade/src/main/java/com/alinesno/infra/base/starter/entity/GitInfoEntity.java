@@ -25,12 +25,12 @@ import lombok.ToString;
 public class GitInfoEntity extends InfraBaseEntity {
 
     /**
-     * 仓库地址
+     * 仓库名称
      */
     @ColumnType(length = 100)
-    @ColumnComment("仓库地址")
+    @ColumnComment("仓库名称")
     @TableField("git_name")
-    private String gitName; // 账号地址
+    private String gitName;
 
     /**
      * 仓库图标
@@ -46,7 +46,7 @@ public class GitInfoEntity extends InfraBaseEntity {
     @ColumnType(length = 100)
     @ColumnComment("仓库地址")
     @TableField("git_host")
-    private String gitHost; // 账号地址
+    private String gitHost;
 
     /**
      * gitlab管理员
@@ -54,7 +54,7 @@ public class GitInfoEntity extends InfraBaseEntity {
     @ColumnType(length = 100)
     @ColumnComment("gitlab管理员")
     @TableField("git_username")
-    private String gitUsername; // 仓库空间
+    private String gitUsername;
 
     /**
      * 仓库空间
