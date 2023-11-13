@@ -5,12 +5,10 @@
       <el-col :span="24" :xs="24">
         <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="100px">
           <el-form-item label="数据库名称" prop="dbName">
-            <el-input v-model="queryParams.dbName" placeholder="请输入数据库名称" clearable style="width: 240px"
-                      @keyup.enter="handleQuery"/>
+            <el-input v-model="queryParams.dbName" placeholder="请输入数据库名称" clearable style="width: 240px" @keyup.enter="handleQuery"/>
           </el-form-item>
           <el-form-item label="数据库名称" prop="dbName">
-            <el-input v-model="queryParams['condition[dbName|like]']" placeholder="请输入数据库名称" clearable
-                      style="width: 240px" @keyup.enter="handleQuery"/>
+            <el-input v-model="queryParams['condition[dbName|like]']" placeholder="请输入数据库名称" clearable style="width: 240px" @keyup.enter="handleQuery"/>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
@@ -40,14 +38,10 @@
 
           <!-- 业务字段-->
           <el-table-column label="数据库名称" align="center" key="dbName" prop="dbName" v-if="columns[0].visible"/>
-          <el-table-column label="数据库描述" align="center" key="dbDesc" prop="dbDesc" v-if="columns[1].visible"
-                           :show-overflow-tooltip="true"/>
-          <el-table-column label="表数据量" align="center" key="nickName" prop="nickName" v-if="columns[2].visible"
-                           :show-overflow-tooltip="true"/>
-          <el-table-column label="类型" align="center" key="dbType" prop="dbType" v-if="columns[3].visible"
-                           :show-overflow-tooltip="true"/>
-          <el-table-column label="数据库地址" align="center" key="jdbcUrl" prop="jdbcUrl" v-if="columns[4].visible"
-                           width="120"/>
+          <el-table-column label="数据库描述" align="center" key="dbDesc" prop="dbDesc" v-if="columns[1].visible" :show-overflow-tooltip="true"/>
+          <el-table-column label="表数据量" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true"/>
+          <el-table-column label="类型" align="center" key="dbType" prop="dbType" v-if="columns[3].visible" :show-overflow-tooltip="true"/>
+          <el-table-column label="数据库地址" align="center" key="jdbcUrl" prop="jdbcUrl" v-if="columns[4].visible" width="120"/>
           <el-table-column label="状态" align="center" key="hasStatus" v-if="columns[5].visible"/>
 
           <el-table-column label="添加时间" align="center" prop="addTime" v-if="columns[6].visible" width="160">
@@ -60,19 +54,16 @@
           <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
             <template #default="scope">
               <el-tooltip content="修改" placement="top" v-if="scope.row.DatabaseId !== 1">
-                <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"
-                           v-hasPermi="['system:Database:edit']"></el-button>
+                <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"></el-button>
               </el-tooltip>
               <el-tooltip content="删除" placement="top" v-if="scope.row.DatabaseId !== 1">
-                <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"
-                           v-hasPermi="['system:Database:remove']"></el-button>
+                <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"></el-button>
               </el-tooltip>
             </template>
 
           </el-table-column>
         </el-table>
-        <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum"
-                    v-model:limit="queryParams.pageSize" @pagination="getList"/>
+        <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList"/>
       </el-col>
     </el-row>
 
@@ -106,8 +97,7 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="密码" prop="dbPasswd">
-              <el-input v-model="form.dbPasswd" placeholder="请输入数据库密码" type="password" maxlength="30"
-                        show-password/>
+              <el-input v-model="form.dbPasswd" placeholder="请输入数据库密码" type="password" maxlength="30" show-password/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -276,7 +266,7 @@ function handleUpdate(row) {
 function submitForm() {
   proxy.$refs["databaseRef"].validate(valid => {
     if (valid) {
-      if (form.value.DatabaseId != undefined) {
+      if (form.value.id != undefined) {
         updateDatabase(form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;

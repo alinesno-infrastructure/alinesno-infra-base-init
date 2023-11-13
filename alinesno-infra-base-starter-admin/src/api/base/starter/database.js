@@ -34,9 +34,9 @@ export function listDatabase(query) {
 }
 
 // 查询数据库详细
-export function getDatabase(databaseId) {
+export function getDatabase(id) {
   return request({
-    url: managerUrl.detailUrl + '/' + parseStrEmpty(databaseId),
+    url: managerUrl.detailUrl + '/' + parseStrEmpty(id),
     method: 'get'
   })
 }
@@ -60,9 +60,9 @@ export function updateDatabase(data) {
 }
 
 // 删除数据库
-export function delDatabase(databaseId) {
+export function delDatabase(id) {
   return request({
-    url: managerUrl.removeUrl + '/' + parseStrEmpty(databaseId),
+    url: managerUrl.removeUrl + '/' + parseStrEmpty(id),
     method: 'delete'
   })
 }

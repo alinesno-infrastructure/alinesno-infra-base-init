@@ -34,9 +34,9 @@ export function listPlugin(query) {
 }
 
 // 查询插件详细
-export function getPlugin(pluginId) {
+export function getPlugin(id) {
   return request({
-    url: managerUrl.detailUrl + '/' + parseStrEmpty(pluginId),
+    url: managerUrl.detailUrl + '/' + parseStrEmpty(id),
     method: 'get'
   })
 }
@@ -60,9 +60,9 @@ export function updatePlugin(data) {
 }
 
 // 删除插件
-export function delPlugin(pluginId) {
+export function delPlugin(id) {
   return request({
-    url: managerUrl.removeUrl + '/' + parseStrEmpty(pluginId),
+    url: managerUrl.removeUrl + '/' + parseStrEmpty(id),
     method: 'delete'
   })
 }

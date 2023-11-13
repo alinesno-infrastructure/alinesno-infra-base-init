@@ -5,12 +5,10 @@
       <el-col :span="24" :xs="24">
         <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="100px">
           <el-form-item label="仓库名称" prop="gitName">
-            <el-input v-model="queryParams.gitName" placeholder="请输入仓库名称" clearable style="width: 240px"
-                      @keyup.enter="handleQuery"/>
+            <el-input v-model="queryParams.gitName" placeholder="请输入仓库名称" clearable style="width: 240px" @keyup.enter="handleQuery"/>
           </el-form-item>
           <el-form-item label="仓库名称" prop="gitName">
-            <el-input v-model="queryParams['condition[gitName|like]']" placeholder="请输入仓库名称" clearable
-                      style="width: 240px" @keyup.enter="handleQuery"/>
+            <el-input v-model="queryParams['condition[gitName|like]']" placeholder="请输入仓库名称" clearable style="width: 240px" @keyup.enter="handleQuery"/>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
@@ -51,19 +49,16 @@
           <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
             <template #default="scope">
               <el-tooltip content="修改" placement="top" v-if="scope.row.GitId !== 1">
-                <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"
-                           v-hasPermi="['system:Git:edit']"></el-button>
+                <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"></el-button>
               </el-tooltip>
               <el-tooltip content="删除" placement="top" v-if="scope.row.GitId !== 1">
-                <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"
-                           v-hasPermi="['system:Git:remove']"></el-button>
+                <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"></el-button>
               </el-tooltip>
             </template>
 
           </el-table-column>
         </el-table>
-        <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum"
-                    v-model:limit="queryParams.pageSize" @pagination="getList"/>
+        <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList"/>
       </el-col>
     </el-row>
 
@@ -191,7 +186,7 @@ function handleQuery() {
 function resetQuery() {
   dateRange.value = [];
   proxy.resetForm("queryRef");
-  queryParams.value.deptId = undefined;
+  queryParams.value.id = undefined;
   proxy.$refs.deptTreeRef.setCurrentKey(null);
   handleQuery();
 };
@@ -248,7 +243,6 @@ function handleUpdate(row) {
   const GitId = row.id || ids.value;
   getGit(GitId).then(response => {
     form.value = response.data;
-    form.value.GitId = GitId
     open.value = true;
     title.value = "修改仓库";
   });
@@ -258,7 +252,7 @@ function handleUpdate(row) {
 function submitForm() {
   proxy.$refs["gitRef"].validate(valid => {
     if (valid) {
-      if (form.value.GitId != undefined) {
+      if (form.value.id !== undefined) {
         updateGit(form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;

@@ -34,9 +34,9 @@ export function listGit(query) {
 }
 
 // 查询仓库详细
-export function getGit(gitId) {
+export function getGit(id) {
     return request({
-        url: managerUrl.detailUrl + '/' + parseStrEmpty(gitId),
+        url: managerUrl.detailUrl + '/' + parseStrEmpty(id),
         method: 'get'
     })
 }
@@ -60,9 +60,9 @@ export function updateGit(data) {
 }
 
 // 删除仓库
-export function delGit(gitId) {
+export function delGit(id) {
     return request({
-        url: managerUrl.removeUrl + '/' + parseStrEmpty(gitId),
+        url: managerUrl.removeUrl + '/' + parseStrEmpty(id),
         method: 'delete'
     })
 }
