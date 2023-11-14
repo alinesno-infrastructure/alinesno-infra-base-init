@@ -28,9 +28,9 @@ export function listApplication(query) {
 }
 
 // 查询应用详细
-export function getApplication(ApplicationId) {
+export function getApplication(id) {
   return request({
-    url: managerUrl.detailUrl + '/' + parseStrEmpty(ApplicationId),
+    url: managerUrl.detailUrl + '/' + parseStrEmpty(id),
     method: 'get'
   })
 }
@@ -54,17 +54,17 @@ export function updateApplication(data) {
 }
 
 // 删除应用
-export function delApplication(ApplicationId) {
+export function delApplication(id) {
   return request({
-    url: managerUrl.removeUrl + '/' + parseStrEmpty(ApplicationId),
+    url: managerUrl.removeUrl + '/' + parseStrEmpty(id),
     method: 'delete'
   })
 }
 
 // 应用密码重置
-export function resetApplicationPwd(ApplicationId, password) {
+export function resetApplicationPwd(id, password) {
   const data = {
-    ApplicationId,
+    id,
     password
   }
   return request({
@@ -75,9 +75,9 @@ export function resetApplicationPwd(ApplicationId, password) {
 }
 
 // 应用状态修改
-export function changeApplicationStatus(ApplicationId, status) {
+export function changeApplicationStatus(id, status) {
   const data = {
-    ApplicationId,
+    id,
     status
   }
   return request({

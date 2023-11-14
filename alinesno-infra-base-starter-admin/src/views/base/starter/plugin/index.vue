@@ -227,12 +227,12 @@ function handleSelectionChange(selection) {
 function reset() {
   form.value = {
     id: undefined,
-    PluginName: undefined,
+    tempName: undefined,
+    industry: undefined,
+    type: undefined,
     screen: undefined,
-    password: undefined,
-    phonenumber: undefined,
-    status: "0",
-    remark: undefined,
+    tempTeam: "0",
+    tempDesc: undefined,
   };
   proxy.resetForm("PluginRef");
 };
