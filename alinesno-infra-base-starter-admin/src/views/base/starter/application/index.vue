@@ -128,6 +128,7 @@ import {
 } from "@/api/base/starter/application";
 import {reactive} from "vue";
 
+
 const router = useRouter();
 const {proxy} = getCurrentInstance();
 const ApplicationList = ref([]);
