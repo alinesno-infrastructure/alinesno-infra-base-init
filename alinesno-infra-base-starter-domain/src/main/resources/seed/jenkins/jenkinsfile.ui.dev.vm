@@ -1,0 +1,165 @@
+pipeline {
+    agent any
+
+    environment {
+    	// 构建参数
+        PROJECT_NAME = '${artifactId}-ui' 
+        PRO_VERSION = '0.0.1-SNAPSHOT'
+        
+        // 镜像仓库
+        ALIYUN_CR_REGISTORY = 'registry.cn-shenzhen.aliyuncs.com'
+        ALIYUN_CR_NAMESPACE = 'alinesno-cloud-incubator'
+        PROFILES_ACTIVE = 'pro'
+        
+        // 认证信息
+        DOCKER_NODE = 'alinesno-platform-pro' 
+        DOCKER_CREDENTIALS = credentials('alinesno-platform-docker-cret') 
+        DOCKER_NAME = '${artifactId}-ui'
+        EXPOSE_PORT = '28078'
+        DOCKER_PORT = '80' 
+        
+        // 认证信息
+        QINIU_CREDENTIALS = credentials('alinesno-platform-qiniu-cret') 
+      	DEPLOY_CDN = "false" 
+      	DEPLOY_CDN_HOST = "七牛域名"
+      	
+      	// 服务端信息
+      	MANAGER_API="/prod-api"
+      	NGINX_BACKEND_URL ="http://localhost:28080/"
+		
+        // 通知
+      	NOTICE = "dingtalk"
+       	DINGTALK_ROBOT = "alinesno-operation-dingtalk-robot"
+    }
+   
+    tools{ 
+        jdk 'jdk-11.0.9' 
+        maven 'apache-maven-3.8.6'
+    }
+
+    options { 
+        buildDiscarder(logRotator(numToKeepStr: '2', artifactNumToKeepStr: '7', daysToKeepStr: '5'))
+    }
+    
+    stages {
+    
+       stage('编译构建') {
+            steps {
+                sh label: '', script: 'mvn clean package -f ${PROJECT_NAME}/pom.xml'
+            }
+        }
+        
+        stage('发布镜像') {
+            steps { 
+                sh '''
+                    # 镜像构建设置变量
+                    export docker_repostory=$ALIYUN_CR_REGISTORY
+                    export docker_registry_name=$ALIYUN_CR_NAMESPACE
+                    export project_artifactid=$DOCKER_NAME
+                    export project_version=$PRO_VERSION.${BUILD_NUMBER}
+
+                    export REGISTRY_USERNAME=$DOCKER_CREDENTIALS_USR
+                    export REGISTRY_PASSWORD=$DOCKER_CREDENTIALS_PSW
+
+                    cd ${PROJECT_NAME}
+                    bash ${WORKSPACE}/${PROJECT_NAME}/docker/build-docker.sh
+                '''
+            }
+        }
+        
+        stage('CDN上传') {
+        	when {
+				expression { env.DEPLOY_CDN == "true" }
+			}    
+            steps { 
+                sh '''
+                    #  添加cdn配置
+                    export accessKey=$QINIU_CREDENTIALS_USR
+                    export secretKey=$QINIU_CREDENTIALS_PSW
+                    
+                    export spaceBucket="training-data"
+                    export remoteFolder=$PROJECT_NAME
+                    export domain=$DEPLOY_CDN_HOST
+
+                    # fix: 处理cdh上传之前环境变量替换的问题 
+                    bash ${WORKSPACE}/${PROJECT_NAME}/qiniu-upload.sh ${WORKSPACE}/${PROJECT_NAME}/docker/dist
+                '''
+            }
+        }
+        
+         stage('Docker发布') {
+              steps { 
+                script {
+                    sshPublisher(
+                    continueOnError: false, failOnError: true,
+                    publishers: [
+                        sshPublisherDesc(
+                        configName: "${env.DOCKER_NODE}" ,
+                        verbose: true,
+                        transfers: [
+                        sshTransfer( 
+                            remoteDirectorySDF: false, 
+                            execTimeout: 120000, 
+                            makeEmptyDirs: false , 
+							execCommand: """
+                    			docker rm -f $PROJECT_NAME  || true
+                    			docker run \
+									-p $EXPOSE_PORT:$DOCKER_PORT \
+									-e API_BASE_URL="$MANAGER_API" \
+									-e UI_NGINX_BACKEND_URL="$NGINX_BACKEND_URL" \
+									-e SERVER_STORAGE_UPLOAD_URL="$MANAGER_API/common/storage/upload" \
+									-e SERVER_STORAGE_DISPLAY_URL="$MANAGER_API/common/storage/displayImg/" \
+									--name $PROJECT_NAME  \
+									--restart="always" \
+									-d $ALIYUN_CR_REGISTORY/$ALIYUN_CR_NAMESPACE/$DOCKER_NAME:$PRO_VERSION.${BUILD_NUMBER}
+							"""
+                        )
+                        ])
+                    ])
+                }
+              }
+        }
+        
+    }
+    
+    // 发送结果通知 
+    post {
+        failure {
+            dingtalk (
+                robot: "${env.DINGTALK_ROBOT}",
+                type:'ACTION_CARD',
+                atAll: false,
+                title: "构建失败：${env.JOB_NAME}",
+                text: [
+                    "### [${env.JOB_NAME}](${env.JOB_URL}) ",
+                    '---',
+                    "- 任务： #[[[${currentBuild.displayName}](${env.BUILD_URL})]]",
+                    "- 构建时间：#[[${new Date().format("yyyy-MM-dd HH:mm:ss")}]]",
+                    "- 环境：${env.PROFILES_ACTIVE}",
+                    '- 状态：<font color=#EE0000 >失败</font>',
+                    "- 持续时间：${currentBuild.durationString}".split("and counting")[0],
+                    "- 执行人：${currentBuild.buildCauses.shortDescription}",
+                ]
+           )
+        }
+        success {
+            dingtalk (
+                robot: "${env.DINGTALK_ROBOT}",
+                type:'ACTION_CARD',
+                atAll: false,
+                title: "构建成功：${env.JOB_NAME}",
+                text: [
+                    "### [${env.JOB_NAME}](${env.JOB_URL}) ",
+                    '---',
+                    "- 任务： #[[[${currentBuild.displayName}](${env.BUILD_URL})]]",
+                    "- 构建时间：#[[${new Date().format("yyyy-MM-dd HH:mm:ss")}]]",
+                    "- 环境：${env.PROFILES_ACTIVE}",
+                    '- 状态：<font color=#005bd4 >成功</font>',
+                    "- 持续时间：${currentBuild.durationString}".split("and counting")[0],
+                    "- 执行人：${currentBuild.buildCauses.shortDescription}",
+                ]
+           )
+        }
+    }
+    
+}

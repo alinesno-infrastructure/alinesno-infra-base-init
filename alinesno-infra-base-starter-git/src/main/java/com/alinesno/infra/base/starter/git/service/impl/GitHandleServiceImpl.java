@@ -1,6 +1,5 @@
 package com.alinesno.infra.base.starter.git.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.alinesno.infra.base.starter.bean.GitAccessTokenBean;
 import com.alinesno.infra.base.starter.bean.GitInfoBean;
 import com.alinesno.infra.base.starter.bean.GitRefreshTokeBean;
@@ -42,7 +41,7 @@ public class GitHandleServiceImpl implements IGitHandleService {
         }else if(GitTypeEnums.GITHUB.getValue().equals(type)){
 
             String json = accessTokenUtils.getGithubAccessToken(code, authorizeUrl, clientId, clientSecret)  ;
-            JSONObject.parseObject(json) ;
+//            JSONObject.parseObject(json) ;
 
         }else if(GitTypeEnums.GITLAB.getValue().equals(type)){
 

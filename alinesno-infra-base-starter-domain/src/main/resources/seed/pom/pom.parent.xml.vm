@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.alinesno.infra</groupId>
+		<artifactId>alinesno-cloud-starter-parent</artifactId>
+		<version>${alinesnoVersion}</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+	<groupId>${groupId}</groupId>
+	<artifactId>${artifactId}-parent</artifactId>
+	<version>${revision}</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<!-- 工程版本号 -->
+		<alinesno.cloud.version>${alinesnoVersion}</alinesno.cloud.version>
+		<java.version>11</java.version>
+		<revision>0.0.1-SNAPSHOT</revision>
+		
+		<!-- 自定义工程包 
+		
+		具体查看说明:https://portal.infra.linesno.com/technique/01_%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF/01_%E7%88%B6%E7%B1%BB%E8%AF%B4%E6%98%8E.html
+		
+		<kettle-version>8.3.0.0-371</kettle-version>
+		<hadoop-shims-api.revision>80.2017.10.00-28</hadoop-shims-api.revision>
+		-->
+		
+	</properties>
+	
+	<modules>
+		<!-- 领域模型 -->
+		<module>${artifactId}-api</module>
+		<module>${artifactId}-domain</module>
+		
+		<!-- 领域能力输出 -->
+		<module>${artifactId}-gateway</module>
+		
+		<!-- 启动工程 -->
+		<module>${artifactId}-boot</module>
+	</modules>
+
+	<!-- 解决无法下载仓库地址的问题 -->
+	<repositories>
+		<repository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>alinesno</id>
+			<url>http://nexus.beta.linesno.com/nexus/content/groups/public</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+</project>

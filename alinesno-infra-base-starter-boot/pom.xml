@@ -41,7 +41,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.alinesno.infra.base</groupId>
-			<artifactId>alinesno-infra-base-starter-api</artifactId>
+			<artifactId>alinesno-infra-base-starter-gateway</artifactId>
 			<version>${revision}</version>
 		</dependency>
 

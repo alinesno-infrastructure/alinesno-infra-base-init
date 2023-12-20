@@ -7,7 +7,7 @@ spring:
     name: alinesno-infra-base-starter-boot
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/dev_alinesno_infra_base_init_v100?characterEncoding=UTF-8&serverTimezone=GMT%2B8&allowMultiQueries=true
+    url: jdbc:mysql://localhost:3306/dev_alinesno_infra_base_starter_v100?characterEncoding=UTF-8&serverTimezone=GMT%2B8&allowMultiQueries=true
     username: root
     password: adminer
   data:

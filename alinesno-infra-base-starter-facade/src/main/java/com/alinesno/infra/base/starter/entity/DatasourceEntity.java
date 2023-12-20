@@ -1,11 +1,11 @@
 package com.alinesno.infra.base.starter.entity;
 
-import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.alinesno.infra.common.facade.mapper.entity.InfraBaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnComment;
 import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnType;
+import com.gitee.sunchenbin.mybatis.actable.annotation.TableComment;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,6 +18,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("starter_database")
+@TableComment("数据库管理")
 public class DatasourceEntity extends InfraBaseEntity {
 
     /**

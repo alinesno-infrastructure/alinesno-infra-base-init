@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnComment;
 import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnType;
+import com.gitee.sunchenbin.mybatis.actable.annotation.TableComment;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -19,6 +20,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName(value = "starter_project_menus", autoResultMap = true)
+@TableComment("应用示例菜单管理")
 public class ProjectMenusEntity extends InfraBaseEntity {
 
     /**

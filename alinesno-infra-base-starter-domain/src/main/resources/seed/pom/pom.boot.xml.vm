@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>${groupId}</groupId>
+		<artifactId>${artifactId}-parent</artifactId>
+		<version>${revision}</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<groupId>${groupId}</groupId>
+	<artifactId>${artifactId}-boot</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>${artifactId}-gateway</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>${artifactId}-api</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>${artifactId}-domain</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		
+#if(${bootDependency})
+		<!-- ${dependencyProjectName}boot_start -->
+		<dependency>
+			<groupId>${bootDependency.groupId}</groupId>
+			<artifactId>${bootDependency.artifactId}</artifactId>
+			<version>${bootDependency.version}</version>
+		</dependency>
+		<!-- ${dependencyProjectName}boot_end -->
+#end
+		
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- sprigboot 打包组件 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dev-${artifactId}-boot
+spec:
+  rules:
+  - host: demo.lbxinhu.linesno.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dev-${artifactId}-boot
+            port:
+              number: 8080

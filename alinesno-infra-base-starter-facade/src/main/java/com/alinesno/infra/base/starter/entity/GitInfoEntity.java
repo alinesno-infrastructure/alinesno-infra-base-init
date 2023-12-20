@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnComment;
 import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnType;
+import com.gitee.sunchenbin.mybatis.actable.annotation.TableComment;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -22,6 +23,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("starter_gitinfo")
+@TableComment("Git管理")
 public class GitInfoEntity extends InfraBaseEntity {
 
     /**

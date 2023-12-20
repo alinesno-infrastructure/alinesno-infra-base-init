@@ -1,5 +1,6 @@
 package com.alinesno.infra.base.starter.service;
 
+import com.alinesno.infra.base.starter.api.dto.ProjectInfoDto;
 import com.alinesno.infra.base.starter.bean.PageQuery;
 import com.alinesno.infra.base.starter.entity.GenTable;
 import com.alinesno.infra.base.starter.entity.GenTableColumn;
@@ -17,6 +18,13 @@ import java.util.Map;
  * @version 1.0.0
  */
 public interface IGenTableService {
+
+    /**
+     * 生成种子工程结构
+     * @param dto
+     * @return
+     */
+    byte[] generatorSeed(ProjectInfoDto dto) ;
 
     /**
      * 查询业务字段列表

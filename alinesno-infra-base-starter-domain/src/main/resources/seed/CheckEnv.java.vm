@@ -1,0 +1,94 @@
+//package ${groupId};
+//
+//import java.net.URI;
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
+//import java.sql.Statement;
+//import java.util.HashMap;
+//import java.util.Map;
+//import java.util.Properties;
+//
+//import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
+//import org.springframework.core.io.ByteArrayResource;
+//import org.springframework.core.io.ClassPathResource;
+//import org.springframework.core.io.Resource;
+//import org.springframework.jdbc.datasource.init.ScriptUtils;
+//
+///**
+// * 验证基础环境，此需要打开redis/mysql
+// * 
+// * @author ${author} 
+// * @since 2022年8月16日 上午6:23:43
+// */
+//public class CheckEnv {
+//	
+//	private static final String driverClass = "com.mysql.cj.jdbc.Driver" ; 
+//	private static Map<Object, String> configMap = new HashMap<Object, String>();
+//
+//	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+//
+//		YamlPropertiesFactoryBean factoryBean = new YamlPropertiesFactoryBean();
+//		factoryBean.setResources(new ClassPathResource("application-dev.yaml"));
+//		Properties properties = factoryBean.getObject();
+//
+//		for (Object key : properties.keySet()) {
+//			configMap.put(key, properties.get(key)+"");
+//		}
+//
+//		addPlatformField();
+//	}
+//
+//	/**
+//	 * 添加平台字段
+//	 * @throws ClassNotFoundException 
+//	 * @throws SQLException 
+//	 */
+//	public static void addPlatformField() throws ClassNotFoundException, SQLException {
+//		Class.forName(driverClass);
+//		Connection conn = DriverManager.getConnection(configMap.get("spring.datasource.url") , configMap.get("spring.datasource.username"), configMap.get("spring.datasource.password"));
+//		
+//		if (conn != null) {
+//			System.out.println("数据库连接成功");
+//		}
+//	
+//		String databaseUrl = configMap.get("spring.datasource.url") ; 
+//		String cleanURI = databaseUrl.substring(5); 
+//		URI uri = URI.create(cleanURI); 
+//		String databaseName = uri.getPath().substring(1) ; 
+//		
+//		String sql = "select table_name from information_schema.tables where table_schema='"+databaseName+"'";
+//		Statement statement = conn.createStatement();
+//		ResultSet result = statement.executeQuery(sql);
+//		while (result.next()) {
+//			String tableName = result.getString("TABLE_NAME");
+//			System.out.println("tableName = " + tableName);
+//			
+//			String platformField = ""
+//					+ "-- add field\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN id VARCHAR(64) DEFAULT NULL COMMENT '主键' ;\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN field_prop VARCHAR(128) DEFAULT NULL COMMENT '字段属性' ;\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN add_time datetime DEFAULT NULL COMMENT '添加时间' ;\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN delete_time datetime DEFAULT NULL COMMENT '删除时间' ;\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN update_time datetime DEFAULT NULL COMMENT '最后更新时间' ;\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN has_delete int(1) DEFAULT NULL COMMENT '是否删除' ;\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN has_status int(1) DEFAULT NULL COMMENT '状态' ;\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN delete_manager VARCHAR(64) DEFAULT NULL COMMENT '删除人员' ;\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN application_id VARCHAR(64) DEFAULT NULL COMMENT '所属应用' ;\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN application_name VARCHAR(64) DEFAULT NULL COMMENT '应用名称' ;\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN tenant_id VARCHAR(64) DEFAULT NULL COMMENT '所属租户' ;\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN operator_id VARCHAR(64) DEFAULT NULL COMMENT '操作员' ;\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN last_update_operator_id VARCHAR(64) DEFAULT NULL COMMENT '最后更新操作员' ;\n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN field_id VARCHAR(64) DEFAULT NULL COMMENT '字段权限' ; \n"
+//					+ "ALTER TABLE " + tableName + " ADD COLUMN department_id VARCHAR(64) DEFAULT NULL COMMENT '部门权限' ;\n"
+//					+ "\n"
+//					+ "-- add primary key\n"
+//					+ "alter table " + tableName + " add primary key(id)\n"
+//					+ "\n"
+//					+ "" ; 
+//			Resource rc = new ByteArrayResource(platformField.getBytes()) ;
+//			ScriptUtils.executeSqlScript(conn, rc);
+//		}
+//	}
+//}

@@ -6,9 +6,9 @@ import com.alinesno.infra.base.starter.CodeGenBaseEntity;
 import com.alinesno.infra.common.facade.wrapper.RpcWrapper;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnComment;
 import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnType;
+import com.gitee.sunchenbin.mybatis.actable.annotation.TableComment;
 import com.google.common.base.CaseFormat;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -26,6 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("starter_gen_column")
+@TableComment("数据库列结构")
 public class GenTableColumn extends CodeGenBaseEntity {
 
     /**

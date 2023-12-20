@@ -9,8 +9,8 @@ import lombok.ToString;
 /**
  * 文件上传模板DTO
  * 
- * @author LuoAnDong
- * @date 2021年7月21日 06:43:10
+ * @author luoxiaodong
+ * @version 1.0.0
  */
 @ToString
 @EqualsAndHashCode(callSuper = true)

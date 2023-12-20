@@ -1,0 +1,135 @@
+pipeline {
+    agent any
+
+    environment {
+    	// 构建参数
+        PROJECT_NAME = '${artifactId}-boot' 
+        PROJECT_WORKSPACE = 'alinesno-cloud-initializr-boot' 
+        PRO_VERSION = '0.0.1-SHAPSHOT'
+        
+        // 镜像仓库
+        ALIYUN_CR_REGISTORY = 'registry.cn-shenzhen.aliyuncs.com'
+        ALIYUN_CR_NAMESPACE = 'alinesno-cloud-incubator'
+        PROFILES_ACTIVE = 'dev'
+        
+        // 认证信息
+        DOCKER_NODE = 'alinesno-platform-pro' 
+        DOCKER_CREDENTIALS = credentials('alinesno-platform-docker-cret') 
+        DOCKER_NAME = '${artifactId}-boot'
+        EXPOSE_PORT = '25009'
+        DOCKER_PORT = '25009' 
+      	
+        // 通知
+      	NOTICE = "dingtalk"
+       	DINGTALK_ROBOT = "alinesno-operation-dingtalk-robot"
+    }
+   
+    tools{ 
+        jdk 'jdk-11.0.9' 
+        maven 'apache-maven-3.8.6'
+    }
+
+    triggers {
+        pollSCM '* * * * *'
+    }
+
+    options { 
+        buildDiscarder(logRotator(numToKeepStr: '2', artifactNumToKeepStr: '7', daysToKeepStr: '5'))
+    }
+    
+    stages {
+    
+       stage('编译构建') {
+            steps {
+                sh label: '', script: 'mvn clean package install'
+            }
+        }
+        
+        stage('发布镜像') {
+            steps { 
+                sh '''
+                    # 环境变量配置
+                    mvn -B -U -f ${WORKSPACE}/${PROJECT_WORKSPACE}/pom.xml install package 
+                    mvn -B -U -f ${WORKSPACE}/${PROJECT_WORKSPACE}/pom.xml clean compile jib:build \\
+                        -Ddocker.registry.name=${ALIYUN_CR_NAMESPACE} \\
+                        -Djib.to.tags=${PRO_VERSION}.${BUILD_NUMBER} \\
+                        -Djib.to.auth.username=$DOCKER_CREDENTIALS_USR  \\
+                        -Djib.to.auth.password=$DOCKER_CREDENTIALS_PSW
+                '''
+            } 
+        }
+
+		
+        stage('Docker发布') {
+              steps { 
+                script {
+                    sshPublisher(
+                    continueOnError: false, failOnError: true,
+                    publishers: [
+                        sshPublisherDesc(
+                        configName: "${env.DOCKER_NODE}" ,
+                        verbose: true,
+                        transfers: [
+                        sshTransfer( 
+                            remoteDirectorySDF: false, 
+                            execTimeout: 120000, 
+                            makeEmptyDirs: false , 
+							execCommand: """
+                    			docker rm -f $PROJECT_NAME  || true
+			                    docker run \
+									-e JAVA_TOOL_OPTIONS="-Dspring.profiles.active=$PROFILES_ACTIVE" \
+									-p $EXPOSE_PORT:$DOCKER_PORT \
+									--name $PROJECT_NAME  \
+									--restart="always" \
+									-d $ALIYUN_CR_REGISTORY/$ALIYUN_CR_NAMESPACE/$DOCKER_NAME:$PRO_VERSION.${BUILD_NUMBER} 
+							"""
+                        )
+                        ])
+                    ])
+                }
+              }
+        }
+        
+    }
+    
+    // 发送结果通知 
+    post {
+        failure {
+            dingtalk (
+                robot: "alinesno-operation-dingtalk-robot",
+                type:'ACTION_CARD',
+                atAll: false,
+                title: "构建失败：${env.JOB_NAME}",
+                text: [
+                    "### [${env.JOB_NAME}](${env.JOB_URL}) ",
+                    '---',
+                    "- 任务：[${currentBuild.displayName}](${env.BUILD_URL})",
+                    "- 构建时间：${new Date().format("yyyy-MM-dd HH:mm:ss")}",
+                    "- 环境：${env.PROFILES_ACTIVE}",
+                    '- 状态：<font color=#EE0000 >失败</font>',
+                    "- 持续时间：${currentBuild.durationString}".split("and counting")[0],
+                    "- 执行人：${currentBuild.buildCauses.shortDescription}",
+                ]
+           )
+        }
+        success {
+            dingtalk (
+                robot: "alinesno-operation-dingtalk-robot",
+                type:'ACTION_CARD',
+                atAll: false,
+                title: "构建成功：${env.JOB_NAME}",
+                text: [
+                    "### [${env.JOB_NAME}](${env.JOB_URL}) ",
+                    '---',
+                    "- 任务：[${currentBuild.displayName}](${env.BUILD_URL})",
+                    "- 构建时间：${new Date().format("yyyy-MM-dd HH:mm:ss")}",
+                    "- 环境：${env.PROFILES_ACTIVE}",
+                    '- 状态：<font color=#005bd4 >成功</font>',
+                    "- 持续时间：${currentBuild.durationString}".split("and counting")[0],
+                    "- 执行人：${currentBuild.buildCauses.shortDescription}",
+                ]
+           )
+        }
+    }
+    
+}

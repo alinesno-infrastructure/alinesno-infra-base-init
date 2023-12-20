@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>${groupId}</groupId>
+		<artifactId>${artifactId}-parent</artifactId>
+		<version>${revision}</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	
+	<groupId>${groupId}</groupId>
+	<artifactId>${artifactId}-api</artifactId>
+	<version>${revision}</version>
+	<packaging>jar</packaging>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.alinesno.infra.common.facade</groupId>
+			<artifactId>alinesno-cloud-common-facade</artifactId>
+			<version>${alinesno.cloud.version}</version>
+		</dependency>
+
+#if(${apiDependency})
+		<!-- ${dependencyProjectName}api_start -->
+		<dependency>
+			<groupId>${apiDependency.groupId}</groupId>
+			<artifactId>${apiDependency.artifactId}</artifactId>
+			<version>${apiDependency.version}</version>
+		</dependency>
+		<!-- ${dependencyProjectName}api_end -->
+#end
+
+	</dependencies>
+
+</project>

@@ -1,0 +1,490 @@
+<template>
+    <div class="home">
+
+        <div class="app-container">
+            <el-row :gutter="20">
+            <el-col :span="16">
+                <div class="data-card">
+                <div class="title">今日统计</div>
+                <ul class="count-list">
+                    <li class="count-data">
+                    <span class="label-tip">总消息量</span>
+                    <span class="label">{{ tCount.tAllCount }}</span>
+                    </li>
+                    <li class="count-data">
+                    <span class="label-tip">发送成功</span>
+                    <span class="label">{{ tCount.tSuccessCount }}</span>
+                    </li>
+                    <li class="count-data">
+                    <span class="label-tip">发送失败</span>
+                    <span class="label">{{ tCount.tErrorCount }}</span>
+                    </li>
+                    <li class="count-data">
+                    <span class="label-tip">发送中</span>
+                    <span class="label">{{ tCount.tSendingCount }}</span>
+                    </li>
+                    <li class="count-data">
+                    <span class="label-tip">处理中</span>
+                    <span class="label">{{ tCount.tHandlingCount }}</span>
+                    </li>
+                </ul>
+                </div>
+            </el-col>
+                <el-col :span="8">
+                    <div class="next-card next-card-free next-card-show-divider">
+                        <h3 class="widget-title">预警信息</h3>
+                        <div class="widget-wrapper" style="position: relative;">
+                            <div class="widget-bulletin-list">
+                                <div class="cont">
+                                    <div class="item" v-for="(item, index) in articleArr" :key="index">
+                                        <a class="wind-rc-link"> {{ item.title }} </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col :span="16">
+                    <div class="WidgetHomeProductMy-detailContainer-3W8nd">
+                        <h3 class="h3-title">
+                            <span tooltipicon="help" class="nb-rc-text product-title">
+                                <span class="the-text">接入教程</span>
+                            </span>
+                        </h3>
+                        <div style="position: relative; overflow: hidden; width: 100%; height: 212px;">
+                            <div style="position: absolute; inset: 0px; overflow: scroll; margin-right: -17px; margin-bottom: -17px;">
+                                <ul class="product_list thm-uglier">
+                                    <li class="product_list_li" v-for="(item , index) in learnDocumentArr" :key="index">
+                                        <div class="text-title">
+                                          <a :href="item.link" target="_blank"> {{ item.title }} </a>
+                                          <span class="text-icons"><i class="fas fa-chevron-right"></i></span>
+                                        </div>
+                                        <div class="text-descript">
+                                          {{ item.desc }}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </el-col>
+                <el-col :span="8">
+                    <div class="next-card next-card-free next-card-show-divider">
+                        <h3 class="widget-title">平台手册</h3>
+                        <div class="widget-wrapper" style="position: relative;">
+                            <div class="widget-bulletin-list">
+                                <div class="cont">
+                                    <div class="item" v-for="(item, index) in articleArr2" :key="index">
+                                        <a class="wind-rc-link"> {{ item.title }} </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </el-col>
+            </el-row>
+        </div>
+    </div>
+
+</template>
+
+<script>
+export default {
+    name: "index",
+    components: {
+    },
+    data() {
+        return {
+            // 版本号
+            version: "3.4.0",
+            tCount:{
+                tAllCount: 0,
+                tSuccessCount: 0,
+                tErrorCount: 0,
+                tSendingCount: 0,
+                tHandlingCount: 0
+              },
+            articleArr: [
+                { title: "【升级】5月20日ACP短信服务业务升级及临时关闭操作通知",status: "1",},
+                { title: "【升级】5月20日ACP短信服务业务升级及临时关闭操作通知",status: "1",},
+                { title: "【升级】5月20日ACP短信服务业务升级及临时关闭操作通知",status: "1",},
+                { title: "【升级】5月20日ACP短信服务业务升级及临时关闭操作通知",status: "1",},
+            ] ,
+            articleArr2: [
+                { title: "【升级】5月20日ACP短信服务业务升级及临时关闭操作通知",status: "1",},
+                { title: "【升级】5月20日ACP短信服务业务升级及临时关闭操作通知",status: "1",},
+                { title: "【升级】5月20日ACP短信服务业务升级及临时关闭操作通知",status: "1",},
+                { title: "【升级】5月20日ACP短信服务业务升级及临时关闭操作通知",status: "1",},
+                { title: "【升级】5月20日ACP短信服务业务升级及临时关闭操作通知",status: "1",},
+                { title: "【升级】5月20日ACP短信服务业务升级及临时关闭操作通知",status: "1",},
+            ] ,
+            learnDocumentArr: [
+                {
+                    title: "接入权限基本架构",
+                    status: "1",
+                    desc: "介绍权限架构和使用说明，权限服务集成思路和架构",
+                    link: "http://portal.infra.linesno.com/technique/13_%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/07_%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7%E9%9B%86%E6%88%90.html",
+                },
+                {
+                    title: "应用接入权限服务",
+                    status: "1",
+                    desc: "新旧应用集成场景，统一认证权限体系",
+                    link: "http://portal.infra.linesno.com/technique/13_%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/08_%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%9B%86%E6%88%90.html",
+                },
+                {
+                    title: "微服务集成",
+                    status: "0",
+                    desc: "与第三方微服务集成，兼容多种微服务体系",
+                    link: "http://portal.infra.linesno.com/technique/13_%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/08_%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%9B%86%E6%88%90.html",
+                },
+                {
+                    title: "自动发布集成",
+                    status: "0",
+                    desc: "集成自动化的操作，也是 devops 中的一部分，主要是 CICD 整合" ,
+                    link: "http://portal.infra.linesno.com/technique/13_%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/04_%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83%E9%9B%86%E6%88%90.html" ,
+                },
+                {
+                    title: "自定义登陆主题",
+                    status: "0",
+                    desc: "自定义应用登陆的主题界面，包括背景和登陆logo、标题等配置",
+                    link: "http://portal.infra.linesno.com/technique/01_%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF/41_%E8%87%AA%E5%AE%9A%E4%B9%89%E7%99%BB%E9%99%86%E4%B8%BB%E9%A2%98.html",
+                },
+                {
+                    title: "单点登陆集成",
+                    status: "0",
+                    desc: "集成Cas/Oauth2等多种sso，集成第三方单点系统",
+                    link: "http://portal.infra.linesno.com/technique/14_%E5%8D%95%E7%82%B9%E7%99%BB%E9%99%86/06_%E7%B3%BB%E7%BB%9F%E7%99%BB%E9%99%86%E9%85%8D%E7%BD%AE.html",
+                },
+            ],
+        };
+    },
+    methods: {
+        goTarget(href) {
+            window.open(href, "_blank");
+        },
+    },
+};
+</script>
+
+<style scoped lang="scss">
+
+.homeHeader {
+    position: relative;
+    box-sizing: border-box;
+    padding: 24px 24px 0;
+    background-color: #fff;
+    box-shadow: 0 1px 0 0 #e3e4e6 ;
+    z-index: 1;
+}
+
+.homeHeader h1 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: #333;
+    line-height: 24px;
+}
+
+.app-container {
+    background-color: #fafafa ;
+    height: calc(100vh - 100px) ;
+}
+
+.widget-title {
+    font-size: 14px;
+    color: #333;
+    line-height: 24px;
+    font-weight: 400;
+    //    float: left;
+    width: 100%;
+}
+
+.app-icon {
+    width: 32px;
+    height: 32px;
+    position: relative;
+}
+
+.el-row {
+    margin-bottom: 20px;
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.el-col {
+    border-radius: 2px;
+    background: #fff ;
+    padding: 20px !important ;
+    padding-left: 20px !important ;
+    padding-right: 20px !important ;
+    border: var(--card-border-width,1px) var(--card-border-style,solid) var(--card-border-color,#e3e4e6);
+}
+
+.el-col-8 {
+    width: calc(33.3333333333% - 10px);
+    margin-left: 10px;
+}
+
+.widget-bulletin-list .item {
+    height: 32px;
+    line-height: 32px;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 12px;
+
+    a {
+        color: #555;
+    }
+}
+
+.product_list_li:nth-child(3),.product_list_li:nth-child(6) {
+    border-right: 0px;
+}
+
+.product_list_li {
+    width: 33% !important;
+    padding: 16px !important ;
+    border-radius: 0px !important ;
+    border-right: 1px solid #eee;
+
+    .text-title{
+        font-family: PingFangSC-Medium;
+        font-size: 16px;
+        color: #333;
+        letter-spacing: 0;
+        line-height: 24px;
+    }
+
+    .text-descript{
+        margin-top: 8px;
+        opacity: .7;
+        font-family: PingFangSC-Regular;
+        font-size: 12px;
+        color: #333;
+        letter-spacing: .37px;
+        line-height: 20px;
+    }
+}
+
+.widget-bulletin-list {
+    .line {
+        position: absolute;
+        left: -16px;
+        right: -16px;
+        height: 1px;
+        background-color: #e3e4e6;
+    }
+    .pin {
+        position: relative;
+        margin-bottom: 15px;
+        margin-top: 15px;
+
+        .msg {
+            padding: 8px 12px;
+            line-height: 18px;
+            color: #333;
+            font-size: 12px;
+            background-color: #eff3f8;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            margin-bottom: 16px;
+        }
+    }
+}
+
+.bg-purple-dark {
+    background: #99a9bf;
+}
+
+.bg-purple {
+    background: #d3dce6;
+}
+
+.bg-purple-light {
+    background: #e5e9f2;
+}
+
+.grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+}
+
+.row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+}
+
+.next-col-4 {
+    -ms-flex: 0 0 16.66667%;
+    -webkit-flex: 0 0 16.66667%;
+    flex: 0 0 16.66667%;
+    width: 16.66667%;
+    max-width: 16.66667%;
+    float: left ;
+}
+
+.subtitle {
+    font-weight: 500;
+    font-size: 12px;
+    color: #666;
+    line-height: 20px;
+    margin: 16px 0 8px;
+}
+
+.thm-uglier {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.product_list {
+    a {
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        background-color: #f9f9f9;
+        width: 100%;
+        line-height: 36px;
+        text-decoration: none;
+        color: #333;
+        transition: all 250ms linear;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+.product_list > li {
+    padding: 0 8px 8px 0;
+    overflow: hidden;
+    flex: none;
+    width: 25%;
+    float: left;
+    border-radius: 4px;
+    font-size: 12px;
+
+    a {
+        line-height: 42px;
+
+        padding: 0 0px;
+        background-color: #fff ;
+
+        i {
+            display: none;
+            border: 1px solid #dedede;
+            border-radius: 14px;
+            width: 28px;
+            height: 28px;
+            text-align: center;
+        }
+    }
+
+    .WidgetHomeProductMy-product_name-TNtW6 {
+        flex: 1;
+        margin-left: 8px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+.h3-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    padding-left: 16px;
+
+}
+
+.text-icons{
+    float: right;
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: 200;
+    color: #ccc;
+}
+
+li.product_list_li.count-li {
+    background: url(https://img.alicdn.com/tfs/TB1uQ8uVLb2gK0jSZK9XXaEgFXa-816-160.png) 0% 0% / 100% 100% no-repeat;
+    width: calc(50% - 16px) !important;
+    height: 140px;
+    border-right: 0px;
+    border-radius: 5px !important;
+    margin: 0px 0px 16px 16px !important;
+}
+
+.count-text-button > button {
+    padding: 0 16px;
+    height: 32px;
+    line-height: 30px;
+    font-size: 12px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #005bd4 ;
+    border-color: transparent;
+    margin-top: 20px;
+    color: #fff;
+    border-radius: 3px;
+}
+.data-card {
+  background: #fff;
+  border-radius: 2px;
+  float: left;
+  width: 100%;
+  margin-bottom: 0px;
+
+  .title {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  ul.count-list {
+    list-style: none;
+    float: left;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+
+    li.count-data {
+      float: left;
+      background: #f7f9fa;
+      border-color: #f7f9fa;
+      flex: 1;
+      height: auto;
+      position: relative;
+      text-align: left;
+      margin-right: 8px;
+      padding:5px 12px;
+      width: calc(33.33% - 8px);
+      text-decoration: none;
+      overflow: hidden;
+      border-width: 1px;
+      border-style: solid;
+      border-radius: 2px;
+      transition: all 0.1s linear;
+      text-align: left;
+      margin-bottom: 10px;
+
+      span.label-tip {
+        width: 100%;
+        float: left;
+        font-size: 12px;
+      }
+      span.label {
+        color: #333;
+        display: block;
+        line-height: 36px;
+        font-size: 20px;
+      }
+    }
+  }
+}
+</style>

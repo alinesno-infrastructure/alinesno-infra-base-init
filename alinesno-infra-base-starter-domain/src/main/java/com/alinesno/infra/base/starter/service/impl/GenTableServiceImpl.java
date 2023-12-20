@@ -4,11 +4,13 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
+import com.alinesno.infra.base.starter.api.dto.ProjectInfoDto;
 import com.alinesno.infra.base.starter.bean.PageQuery;
 import com.alinesno.infra.base.starter.config.CustomIdGenerator;
 import com.alinesno.infra.base.starter.constants.GenConstants;
 import com.alinesno.infra.base.starter.entity.GenTable;
 import com.alinesno.infra.base.starter.entity.GenTableColumn;
+import com.alinesno.infra.base.starter.enums.ServiceTypeEnums;
 import com.alinesno.infra.base.starter.mapper.GenTableColumnMapper;
 import com.alinesno.infra.base.starter.mapper.GenTableMapper;
 import com.alinesno.infra.base.starter.service.IGenTableService;
@@ -56,6 +58,22 @@ public class GenTableServiceImpl implements IGenTableService {
     private final GenTableMapper baseMapper;
     private final GenTableColumnMapper genTableColumnMapper;
     private final CustomIdGenerator identifierGenerator;
+
+    @Override
+    public byte[] generatorSeed(ProjectInfoDto info) {
+        log.debug("dto = {}" , info.toString());
+        byte[] genData = null ;
+
+        if(ServiceTypeEnums.ALL.getCode().equals(info.getServiceType())){  // 前后端一起
+            genData = ProjectVelocityUtils.genJavaProjectSeed(info) ;
+        }else if(ServiceTypeEnums.BACK_END.getCode().equals(info.getServiceType())){  // 只生成后端
+            genData = ProjectVelocityUtils.genJavaProjectSeed(info) ;
+        } else if(ServiceTypeEnums.FRONT_END.getCode().equals(info.getServiceType())){  // 只生成前端
+            genData = ProjectVelocityUtils.generatorNpmSeed(info) ;
+        }
+
+        return genData ;
+    }
 
     /**
      * 查询业务字段列表

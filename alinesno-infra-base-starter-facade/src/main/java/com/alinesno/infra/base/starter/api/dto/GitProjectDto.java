@@ -33,4 +33,5 @@ public class GitProjectDto {
 	private String[] dependency; // 依赖信息
 
 	private String gitRepository; // 生成git地址
+
 }

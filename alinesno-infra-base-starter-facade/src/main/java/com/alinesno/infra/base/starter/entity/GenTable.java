@@ -8,8 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnComment;
 import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnType;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
+import com.gitee.sunchenbin.mybatis.actable.annotation.TableComment;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang.ArrayUtils;
@@ -30,6 +29,7 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("starter_gen_table")
+@TableComment("数据库表结构")
 public class GenTable extends CodeGenBaseEntity {
 
     @ColumnType(length = 50)

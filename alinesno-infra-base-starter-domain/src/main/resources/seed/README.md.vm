@@ -1,0 +1,22 @@
+# 工程脚手架构生成
+
+查看详细说明[打开](https://portal.infra.linesno.com/technique/13_%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/)
+
+## 概述
+
+工程依赖于六边型思想，整合当前的项目工程结构特点，进行的规划和划分，以下为整体工程的规划架构。
+
+## 脚本架使用说明
+
+以下为工程打包命令
+
+```shell
+# 工程打包
+mvn clean package 
+
+# 前端打包
+npm install
+npm run dev
+```
+
+启动工程，位于boot工程下面，直接启动main方法即可

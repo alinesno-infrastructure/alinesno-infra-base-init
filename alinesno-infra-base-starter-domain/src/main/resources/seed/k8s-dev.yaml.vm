@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev-${artifactId}-boot
+  labels:
+    app: dev-${artifactId}-boot
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: dev-${artifactId}-boot
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: dev-${artifactId}-boot
+    spec:
+      imagePullSecrets:
+      - name: docker-login
+      containers:
+      - name: dev-${artifactId}-boot
+        image: registry-vpc.cn-shenzhen.aliyuncs.com/alinesno-cloud/${artifactId}-boot:0.0.1-SNAPSHOT
+        resources:
+          limits:
+            cpu: 250m
+            memory: 4096Mi
+          requests:
+            cpu: 10m
+            memory: 256Mi
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        env:
+          - name: SPRING_APPLICATION_NAME
+            value: '${artifactId}-boot'
+          - name: SERVER_PORT
+            value: '8080'
+          - name: REGISTER_ADDRESS
+            value: 'nacos://nacos.lbxinhu.linesno.com:23456/'
+          - name: REDIS_HOST
+            value: 'dev-redis'
+          - name: REDIS_PORT
+            value: '6379'
+          - name: REDIS_PASSWORD
+            value: '2njv2EIXmLj5DjdH'
+          - name: DATASOURCE_URL
+            value: 'jdbc:mysql://dev-mysql:3306/?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false&serverTimezone=GMT'
+          - name: DATASOURCE_HOST
+            value: 'dev-mysql:3306'
+          - name: DATASOURCE_DATABASE
+            value: ''
+          - name: DATASOURCE_USERNAME
+            value: ''
+          - name: DATASOURCE_PASSWORD
+            value: ''
+          - name: SPRING_BOOT_ADMIN_URL
+            value: http://operation-alinesno-cloud-platform-admin:24003
+          - name: SPRING_BOOT_ADMIN_USERNAME
+            value: admin
+          - name: SPRING_BOOT_ADMIN_PASSWORD
+            value: admin
+          - name: MANAGEMENT_BASE_URL
+            value: http://dev-${artifactId}-project:8080
+          - name: JAVA_TOOL_OPTIONS
+            value: '-Xms128m -Xmx512m -Dspring.profiles.active=hub'
+          - name: CDN
+            value: 'http://static.cloud.linesno.com'
+          - name: CAS_SERVICE
+            value: 'http://v2.cas.dev.lbxinhu.linesno.com:23456'
+          - name: SERVICE_URL_PREFIX
+            value: 'http://demo.lbxinhu.linesno.com:23456'
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 45
+        imagePullPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dev-${artifactId}-boot
+  namespace: default
+  labels:
+    app: dev-${artifactId}-boot
+spec:
+  ports:
+    - name: http-boot
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: dubbo-provider
+      protocol: TCP
+      port: 8180
+      targetPort: 8180
+  selector:
+    app: dev-${artifactId}-boot
+  type: ClusterIP
