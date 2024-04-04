@@ -1,5 +1,6 @@
 package com.alinesno.infra.base.starter.service;
 
+import com.alinesno.infra.base.starter.api.dto.ProjectInfoDto;
 import com.alinesno.infra.base.starter.entity.ApplicationEntity;
 import com.alinesno.infra.common.facade.services.IBaseService;
 
@@ -11,4 +12,9 @@ import com.alinesno.infra.common.facade.services.IBaseService;
  */
 public interface IApplicationService extends IBaseService<ApplicationEntity> {
 
+    /**
+     * 添加工程服务
+     * @param dto
+     */
+    void addProject(ProjectInfoDto dto);
 }

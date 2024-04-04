@@ -5,8 +5,8 @@
       <el-col :span="24" :xs="24">
         <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
 
-          <el-form-item label="应用名称" prop="applicationName">
-            <el-input v-model="queryParams['condition[applicationName|like]']" placeholder="请输入应用名称" clearable style="width: 240px" @keyup.enter="handleQuery"/>
+          <el-form-item label="应用名称" prop="name">
+            <el-input v-model="queryParams['condition[name|like]']" placeholder="请输入应用名称" clearable style="width: 240px" @keyup.enter="handleQuery"/>
           </el-form-item>
           <el-form-item label="显示名称" prop="showName" label-width="100px">
             <el-input v-model="queryParams['condition[showName|like]']" placeholder="请输入显示名称" clearable style="width: 240px" @keyup.enter="handleQuery"/>
@@ -19,12 +19,12 @@
         </el-form>
 
         <el-row :gutter="10" class="mb8">
-          <el-col :span="1.5">
+          <!-- <el-col :span="1.5">
             <el-button type="primary" plain icon="Plus" @click="handleAdd">新增</el-button>
           </el-col>
           <el-col :span="1.5">
             <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate">修改</el-button>
-          </el-col>
+          </el-col> -->
           <el-col :span="1.5">
             <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete">删除</el-button>
           </el-col>
@@ -34,13 +34,31 @@
 
         <el-table v-loading="loading" :data="ApplicationList" @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="50" align="center"/>
-          <el-table-column label="图标" align="center" width="55px" prop="icon" v-if="columns[0].visible"></el-table-column>
-          <el-table-column label="应用名称" align="center" key="applicationName" prop="applicationName" v-if="columns[1].visible" :show-overflow-tooltip="true"/>
-          <el-table-column label="显示名称" align="center" key="showName" prop="showName" v-if="columns[2].visible" :show-overflow-tooltip="true"/>
-          <el-table-column label="所属领域" align="center" key="domain" prop="domain" v-if="columns[3].visible" :show-overflow-tooltip="true"/>
-          <el-table-column label="域名" align="center" key="domainName" prop="domainName" v-if="columns[4].visible" :show-overflow-tooltip="true"/>
-          <el-table-column label="安全存储路径" align="center" key="storagePath" prop="storagePath" v-if="columns[5].visible" :show-overflow-tooltip="true"/>
-          <el-table-column label="应用目标" align="center" key="target" prop="target" v-if="columns[6].visible" :show-overflow-tooltip="true"/>
+          <el-table-column label="图标" align="center" width="60px" prop="icon" v-if="columns[0].visible">
+            <template #default="scope">
+                <div class="role-icon">
+                  <img :src="'http://data.linesno.com/icons/sepcialist/dataset_' + ((scope.$index + 1)%10 + 5) + '.png'" />
+                </div>
+            </template>
+          </el-table-column>
+          <el-table-column label="应用名称" align="left" key="name" prop="name" v-if="columns[1].visible" :show-overflow-tooltip="true"/>
+          <el-table-column label="显示名称" align="left" key="showName" prop="showName" v-if="columns[2].visible" :show-overflow-tooltip="true"/>
+          <el-table-column label="领域" align="left" key="domain" prop="domain" v-if="columns[3].visible" :show-overflow-tooltip="true"/>
+          <el-table-column label="集成插件" align="center" key="domainName" prop="domainName" v-if="columns[4].visible" :show-overflow-tooltip="true">
+            <template #default="scope">
+                <el-button type="primary" text bg icon="Paperclip" @click="configPrompt(scope.row)">配置</el-button>
+            </template>
+          </el-table-column>
+          <el-table-column label="集成仓库" align="center" key="storagePath" prop="storagePath" v-if="columns[5].visible" :show-overflow-tooltip="true">
+            <template #default="scope">
+                <el-button type="primary" text bg icon="Paperclip" @click="configPrompt(scope.row)">配置</el-button>
+            </template>
+          </el-table-column>
+          <el-table-column label="是否发布" align="center" key="target" prop="target" v-if="columns[6].visible" :show-overflow-tooltip="true">
+            <template #default="scope">
+                <el-button type="primary" text bg icon="Paperclip" @click="configPrompt(scope.row)">配置</el-button>
+            </template>
+          </el-table-column>
           <el-table-column label="创建时间" align="center" prop="addTime" v-if="columns[7].visible" width="160">
             <template #default="scope">
               <span>{{ parseTime(scope.row.addTime) }}</span>
@@ -66,8 +84,8 @@
       <el-form :model="form" :rules="rules" ref="ApplicationRef" label-width="80px">
         <el-row>
           <el-col :span="24">
-            <el-form-item  label="应用名称" prop="applicationName">
-              <el-input v-model="form.applicationName" placeholder="请输入应用名称" maxlength="50"/>
+            <el-form-item  label="应用名称" prop="name">
+              <el-input v-model="form.name" placeholder="请输入应用名称" maxlength="50"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -161,15 +179,15 @@ const data = reactive({
   queryParams: {
     pageNum: 1,
     pageSize: 10,
-    ApplicationName: undefined,
-    applicationName: undefined,
+    name: undefined,
+    name: undefined,
     showName: undefined,
     status: undefined,
     deptId: undefined
   },
   rules: {
     id: [{required: true, message: "应用编号不能为空", trigger: "blur"}],
-    applicationName: [{required: true, message: "应用名称不能为空", trigger: "blur"}, {min: 2, max: 20, message: "应用名称长度必须介于 2 和 20 之间", trigger: "blur"}],
+    name: [{required: true, message: "应用名称不能为空", trigger: "blur"}, {min: 2, max: 20, message: "应用名称长度必须介于 2 和 20 之间", trigger: "blur"}],
     showName: [{required: true, message: "显示名称不能为空", trigger: "blur"}],
     domain: [{required: true, message: "所属领域不能为空", trigger: "blur"}],
     domainName: [{required: true, message: "域名不能为空", trigger: "blur"}],
@@ -201,7 +219,7 @@ function handleQuery() {
 function resetQuery() {
   dateRange.value = [];
   proxy.resetForm("queryRef");
-  queryParams.value.applicationName = undefined;
+  queryParams.value.name = undefined;
   queryParams.value.showName = undefined;
   handleQuery();
 };
@@ -230,7 +248,7 @@ function handleSelectionChange(selection) {
 function reset() {
   form.value = {
     id: undefined,
-    applicationName: undefined,
+    name: undefined,
     showName: undefined,
     domain: undefined,
     domainName: undefined,

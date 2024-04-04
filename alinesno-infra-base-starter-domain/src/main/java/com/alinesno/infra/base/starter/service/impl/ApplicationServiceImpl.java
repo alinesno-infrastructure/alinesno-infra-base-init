@@ -1,5 +1,6 @@
 package com.alinesno.infra.base.starter.service.impl;
 
+import com.alinesno.infra.base.starter.api.dto.ProjectInfoDto;
 import com.alinesno.infra.base.starter.entity.ApplicationEntity;
 import com.alinesno.infra.base.starter.mapper.ApplicationMapper;
 import com.alinesno.infra.base.starter.service.IApplicationService;
@@ -17,4 +18,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApplicationServiceImpl extends IBaseServiceImpl<ApplicationEntity, ApplicationMapper> implements IApplicationService {
 
+    @Override
+    public void addProject(ProjectInfoDto dto) {
+
+        ApplicationEntity entity = new ApplicationEntity() ;
+
+        entity.setShowName(dto.getProjectName());
+        entity.setName(dto.getArtifactId());
+        entity.setIcons(dto.getProjectName());
+        entity.setDomain(dto.getGroupId());
+
+        save(entity) ;
+    }
 }

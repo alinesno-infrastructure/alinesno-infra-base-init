@@ -146,7 +146,7 @@ public class CommonLoginController {
         ));
 
         Menu monitorMenu = new Menu("Config", "/config", false, "noRedirect", "Layout", true, new Menu.Meta("资源配置", "monitor", false, null), List.of(
-                new Menu("Database", "base/starter/database/index", false, false , "base/starter/database/index", new Menu.Meta("数据管理", "online", false, null)),
+                new Menu("Database", "base/starter/database/index", false, false , "base/starter/database/index", new Menu.Meta("模型管理", "online", false, null)),
                 new Menu("Git", "base/starter/git/index", false, false , "base/starter/git/index", new Menu.Meta("仓库管理", "job", false, null))
         ));
 

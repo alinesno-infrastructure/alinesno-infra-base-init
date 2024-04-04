@@ -3,6 +3,7 @@ package com.alinesno.infra.base.starter.api.controller;
 
 import cn.hutool.core.io.IoUtil;
 import com.alinesno.infra.base.starter.api.dto.ProjectInfoDto;
+import com.alinesno.infra.base.starter.service.IApplicationService;
 import com.alinesno.infra.base.starter.service.IGenTableService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,9 @@ public class StarterSeedController {
     @Autowired
     private IGenTableService genTableService;
 
+    @Autowired
+    private IApplicationService applicationService ;
+
     /**
      * 生成种子工程结构
      * @return
@@ -31,11 +35,13 @@ public class StarterSeedController {
     @GetMapping("/generatorSeed")
     public void generatorSeed(HttpServletResponse response , ProjectInfoDto dto) throws IOException {
 
-//        ProjectInfoDto dto = new ProjectInfoDto() ;
         log.debug("dto = {}" , dto);
 
         byte[] data = genTableService.generatorSeed(dto) ;
         genCode(response,data , dto);
+
+        // 初始化工程记录
+        applicationService.addProject(dto) ;
 
     }
 
