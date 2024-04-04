@@ -95,7 +95,7 @@ import {downLoadZip} from "@/utils/zipdownload";
 import {
   generatorSeed,
 } from "@/api/base/starter/project";
-import {reactive} from "vue";
+import {reactive , inject} from "vue";
 
 const { proxy } = getCurrentInstance();
 const loading = ref(false);
@@ -124,7 +124,7 @@ const data = reactive({
 });
 
 const {queryParams, form, rules} = toRefs(data);
-
+const selectedItems = inject('selectedItems', null);
 
 /** 提交按钮 */
 function submitForm() {
@@ -142,6 +142,8 @@ function submitForm() {
       queryParams.append('generatorDemo', this.form.generatorDemo)
       queryParams.append('deployType', this.form.deployType)
       queryParams.append('projectGenType', this.form.projectGenType)
+
+      console.log('selectedItems = ' + selectedItems) ;
 
       const url = '/api/infra/base/starter/seed/generatorSeed?' + queryParams.toString();
       downLoadZip(url);
