@@ -26,12 +26,12 @@ public class StarterSeedController {
 
     /**
      * 生成种子工程结构
-     * @param dto
      * @return
      */
-    @PostMapping("/generatorSeed")
-    public void generatorSeed(HttpServletResponse response , @RequestBody ProjectInfoDto dto) throws IOException {
+    @GetMapping("/generatorSeed")
+    public void generatorSeed(HttpServletResponse response , ProjectInfoDto dto) throws IOException {
 
+//        ProjectInfoDto dto = new ProjectInfoDto() ;
         log.debug("dto = {}" , dto);
 
         byte[] data = genTableService.generatorSeed(dto) ;
@@ -46,7 +46,7 @@ public class StarterSeedController {
     private void genCode(HttpServletResponse response,byte[] data , ProjectInfoDto dto) throws IOException {
         response.reset();
 
-//        response.addHeader("Access-Control-Allow-Origin", origin);
+        response.addHeader("Access-Control-Allow-Origin", "*");
         response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
         response.setHeader("Content-Disposition", "attachment; filename=\""+ dto.getArtifactId() +".zip\"");
 

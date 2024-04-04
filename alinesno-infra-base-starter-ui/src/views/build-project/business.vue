@@ -10,13 +10,13 @@
             组件信息
           </div>
 
-          <el-form :model="form" :rules="rules" :label-position="labelPosition" v-loading="loading" ref="form"
+          <el-form :model="form" :rules="rules" :label-position="labelPosition" v-loading="loading" ref="genRef"
             label-width="180px" class="demo-ruleForm">
-            <el-form-item label="服务名称" prop="name">
-              <el-input v-model="form.name" placeholder="请输入企业名称" />
+            <el-form-item label="服务名称" prop="projectName">
+              <el-input v-model="form.projectName" placeholder="请输入服务名称" />
             </el-form-item>
-            <el-form-item label="生成类型">
-              <el-radio-group v-model="form.resource">
+            <el-form-item label="生成类型" prop="serviceType">
+              <el-radio-group v-model="form.serviceType">
                 <el-radio label="all">前后端</el-radio>
                 <el-radio label="service">后端</el-radio>
                 <el-radio label="ui">前端</el-radio>
@@ -25,43 +25,38 @@
 
             <el-divider content-position="left" style="width:90%">工程信息</el-divider>
 
-            <el-form-item label="工程标识(artifactId)" prop="name">
-              <el-input v-model="form.name" placeholder="请输入企业名称" />
+            <el-form-item label="工程标识(artifactId)" prop="artifactId">
+              <el-input v-model="form.artifactId" placeholder="请输入企业名称" />
             </el-form-item>
-            <el-form-item label="工程组标识(groupId)" prop="name">
-              <el-input v-model="form.name" placeholder="请输入企业名称" />
+            <el-form-item label="工程组标识(groupId)" prop="groupId">
+              <el-input v-model="form.groupId" placeholder="请输入企业名称" />
             </el-form-item>
-            <!-- 
-            <el-form-item label="工程域名" prop="name">
-              <el-input v-model="form.name" placeholder="请输入企业名称" />
-            </el-form-item> 
-            -->
 
             <el-divider content-position="left" style="width:90%">集成能力</el-divider>
 
-            <el-form-item label="上传创建">
-              <el-select v-model="form.git" style="width:100%" placeholder="选择你的仓库模型">
+            <el-form-item label="上传创建" prop="gitId">
+              <el-select v-model="form.gitId" style="width:100%" placeholder="选择你的仓库模型">
                 <el-option label="个人Github仓库" value="shanghai" />
                 <el-option label="个人Gitee仓库" value="beijing" />
                 <el-option label="企业Gitlab仓库" value="beijing" />
               </el-select>
             </el-form-item>
 
-            <el-form-item label="发布模型">
-              <el-radio-group v-model="form.resource">
+            <el-form-item label="发布模型" prop="deployType">
+              <el-radio-group v-model="form.deployType">
                 <el-radio label="Kubernates" />
               </el-radio-group>
             </el-form-item>
 
-            <el-form-item label="领域模型">
-              <el-select v-model="form.region" style="width:100%" placeholder="选择你的领域模型">
+            <el-form-item label="领域模型" prop="projectGenType">
+              <el-select v-model="form.projectGenType" style="width:100%" placeholder="选择你的领域模型">
                 <el-option label="普通MVC工程(适合插件)" value="shanghai" />
                 <el-option label="面向领域服务工程" value="beijing" />
               </el-select>
             </el-form-item>
 
-            <el-form-item label="示例集成">
-              <el-switch v-model="form.delivery" />
+            <el-form-item label="示例集成" prop="generatorDemo">
+              <el-switch v-model="form.generatorDemo" />
             </el-form-item>
 
             <!-- 
@@ -94,16 +89,68 @@
 
 <script setup>
 
-import BusinessFunctionModel from './businessPlugins.vue'
+import BusinessFunctionModel from './businessPlugins.vue';
+import {downLoadZip} from "@/utils/zipdownload";
 
-const labelPosition = ref('right')
+import {
+  generatorSeed,
+} from "@/api/base/starter/project";
+import {reactive} from "vue";
 
-const form = ref({
-  name: null,
-  logo: null,
-  enDesc: null,
-  creditCode: null,
+const { proxy } = getCurrentInstance();
+const loading = ref(false);
+const labelPosition = ref('right');
+
+const data = reactive({
+  form: {},
+  queryParams: {
+    pageNum: 1,
+    pageSize: 10,
+    ApplicationName: undefined,
+    applicationName: undefined,
+    showName: undefined,
+    status: undefined,
+    deptId: undefined
+  },
+  rules: {
+    projectName: [{required: true, message: "服务名称不能为空", trigger: "blur"}],
+    serviceType: [{required: true, message: "生成类型不能为空", trigger: "blur"}],
+    artifactId: [{required: true, message: "工程标识不能为空", trigger: "blur"}],
+    groupId: [{required: true, message: "工程组不能为空", trigger: "blur"}],
+    deployType: [{required: true, message: "发布模型不能为空", trigger: "blur"}],
+    projectGenType: [{required: true, message: "领域模型不能为空", trigger: "blur"}],
+    generatorDemo: [{required: true, message: "集成示例不能为空", trigger: "blur"}],
+  }
 });
+
+const {queryParams, form, rules} = toRefs(data);
+
+
+/** 提交按钮 */
+function submitForm() {
+  proxy.$refs["genRef"].validate(valid => {
+    if (valid) {
+      loading.value = true ;
+
+      const queryParams = new URLSearchParams();
+
+      queryParams.append('projectName', this.form.projectName)
+      queryParams.append('artifactId', this.form.artifactId)
+      queryParams.append('serviceType', this.form.serviceType)
+      queryParams.append('groupId', this.form.groupId)
+      queryParams.append('gitId', this.form.gitId)
+      queryParams.append('generatorDemo', this.form.generatorDemo)
+      queryParams.append('deployType', this.form.deployType)
+      queryParams.append('projectGenType', this.form.projectGenType)
+
+      const url = '/api/infra/base/starter/seed/generatorSeed?' + queryParams.toString();
+      downLoadZip(url);
+
+      loading.value = false ;
+    }
+  });
+};
+
 
 </script>
 

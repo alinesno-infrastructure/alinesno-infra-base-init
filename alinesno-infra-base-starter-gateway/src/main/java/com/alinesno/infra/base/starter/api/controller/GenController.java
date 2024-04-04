@@ -105,6 +105,25 @@ public class GenController extends SuperController {
     }
 
     /**
+     * 导入表结构及字段信息
+     *
+     * @param tables 表名串
+     */
+    @PostMapping("/importTableColumns")
+    public AjaxResult importTableColumns(String tables) {
+
+        String userId = "1001" ;
+
+        String[] tableNames = Convert.toStrArray(tables);
+
+        // 查询表信息
+        List<GenTable> tableList = genTableService.selectDbTableListByNames(tableNames);
+        genTableService.importGenTable(tableList , userId);
+
+        return AjaxResult.success();
+    }
+
+    /**
      * 修改保存代码生成业务
      */
     @PutMapping
