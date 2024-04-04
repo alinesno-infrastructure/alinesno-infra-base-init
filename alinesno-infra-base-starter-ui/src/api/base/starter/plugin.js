@@ -21,7 +21,45 @@ var managerUrl = {
   removeUrl: prefix + "delete" ,
   exportUrl: prefix + "exportExcel",
   changeField: prefix + "changeField",
-  downloadfile: prefix + "downloadfile"
+  downloadfile: prefix + "downloadfile",
+  uploadProjectTemplate: prefix + "uploadProjectTemplate",
+  getFilterTemplate: prefix + "getFilterTemplate",
+  databaseList: prefix + "databaseList",
+  syncTemplates: prefix + "syncTemplates",
+}
+
+// 列出项目模板
+export function listBuildProjectTemplate(query) {
+  return request({
+    url: managerUrl.datatables ,
+    method: 'post',
+    params: query
+  })
+}
+
+// 上传项目模板
+export function uploadProjectTemplate(data) {
+return request({
+  url: managerUrl.uploadProjectTemplate,
+  method: 'post',
+  data: data ,
+})
+}
+
+// 同步仓库 
+export function syncTemplates() {
+return request({
+  url: managerUrl.syncTemplates,
+  method: 'get',
+})
+}
+
+// 查询用户管理列表
+export function getFilterTemplate() {
+return request({
+  url: managerUrl.getFilterTemplate,
+  method: 'post',
+})
 }
 
 // 查询插件列表
