@@ -41,30 +41,39 @@
                 </div>
             </template>
           </el-table-column>
-          <el-table-column label="应用名称" align="left" key="name" prop="name" v-if="columns[1].visible" :show-overflow-tooltip="true"/>
+          <el-table-column label="应用名称" align="left" key="name" prop="name" v-if="columns[1].visible" :show-overflow-tooltip="true">
+            <template #default="scope">
+              <span style="cursor: pointer;" @click="()=>detailInfo()">{{ scope.row.name }}</span>
+            </template>
+          </el-table-column>
           <el-table-column label="显示名称" align="left" key="showName" prop="showName" v-if="columns[2].visible" :show-overflow-tooltip="true"/>
           <el-table-column label="领域" align="left" key="domain" prop="domain" v-if="columns[3].visible" :show-overflow-tooltip="true"/>
-          <el-table-column label="集成插件" align="center" key="domainName" prop="domainName" v-if="columns[4].visible" :show-overflow-tooltip="true">
+          
+          <el-table-column label="集成插件" align="center" width="120"  key="domainName" prop="domainName" v-if="columns[4].visible" :show-overflow-tooltip="true">
             <template #default="scope">
                 <el-button type="primary" text bg icon="Paperclip" @click="configPrompt(scope.row)">配置</el-button>
             </template>
           </el-table-column>
-          <el-table-column label="集成仓库" align="center" key="storagePath" prop="storagePath" v-if="columns[5].visible" :show-overflow-tooltip="true">
+          <el-table-column label="集成仓库" align="center" width="120"  key="storagePath" prop="storagePath" v-if="columns[5].visible" :show-overflow-tooltip="true">
             <template #default="scope">
                 <el-button type="primary" text bg icon="Paperclip" @click="configPrompt(scope.row)">配置</el-button>
             </template>
           </el-table-column>
-          <el-table-column label="是否发布" align="center" key="target" prop="target" v-if="columns[6].visible" :show-overflow-tooltip="true">
+          <el-table-column label="是否发布" align="center" width="120" key="target" prop="target" v-if="columns[6].visible" :show-overflow-tooltip="true">
             <template #default="scope">
                 <el-button type="primary" text bg icon="Paperclip" @click="configPrompt(scope.row)">配置</el-button>
             </template>
           </el-table-column>
+
+          <!--
           <el-table-column label="创建时间" align="center" prop="addTime" v-if="columns[7].visible" width="160">
             <template #default="scope">
               <span>{{ parseTime(scope.row.addTime) }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width" v-if="columns[8].visible">
+          -->
+
+          <el-table-column label="操作" align="center" width="100" class-name="small-padding fixed-width" v-if="columns[8].visible">
             <template #default="scope">
               <el-tooltip content="修改" placement="top" v-if="scope.row.id !== 1">
                 <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"></el-button>
@@ -303,6 +312,11 @@ function submitForm() {
     }
   });
 };
+
+/** 项目详情 */
+function detailInfo(){
+  router.push({ path: "/function/base/starter/application/detail" });
+}
 
 getList();
 </script>

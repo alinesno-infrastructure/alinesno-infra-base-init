@@ -9,7 +9,7 @@
           <div class="panel-body acp-height-auto" style="padding: 0;padding-bottom: 10px;">
             <div class="acp-app-list">
               <ul>
-                <li class="app-items" v-for="item in apps" :key="item" style="width:calc(25% - 10px)">
+                <li class="app-items" v-for="item in apps" :key="item" @click="()=>detailInfo()"  style="width:calc(25% - 10px);cursor: pointer;">
                   <div class="app-icon">
                     <img :src="item.icon" :alt="item.name" />
                   </div>
@@ -52,6 +52,9 @@
 
 <script setup>
 
+import { useRouter } from "vue-router";
+const router = useRouter();
+
 const opertionAssets = ref([
   { id: '1', title: '集成数据库', count: 45 },
   { id: '2', title: '生成项目数', count: 145 },
@@ -71,6 +74,10 @@ const apps = ref([
   { icon: 'https://d1by4p17n947rt.cloudfront.net/icon/a5ffe5487f62ef75d8e5cf78c18525a5-d4867f9d4adcd749f0c5aff987232847.svg', name: '审计日志服务', desc: '业务基础服务规划和建设，描述待补充' },
   { icon: 'https://d1by4p17n947rt.cloudfront.net/icon/6e9e16955bd76c1d3a9996e0d6d3ad15-04cfc8c62f597690680d948b366980cf.svg', name: '持续集成服务', desc: '业务基础服务规划和建设，描述待补充' },
 ]);
+
+function detailInfo(){
+  router.push({ path: "/function/base/starter/application/detail" });
+}
 
 </script>
 

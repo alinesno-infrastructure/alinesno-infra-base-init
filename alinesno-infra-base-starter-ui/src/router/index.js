@@ -77,6 +77,12 @@ export const constantRoutes = [
         name: '/dashboard/learnPanel',
         meta: { title: '学习手册', icon: 'dashboard', affix: true }
       },
+      {
+        path: '/function/base/starter/application/detail',
+        component: () => import('@/views/base/starter/application/detail'),
+        name: '/function/base/starter/application/detail',
+        meta: { title: '项目详情', icon: 'dashboard', affix: true }
+      },
 
       // ->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
