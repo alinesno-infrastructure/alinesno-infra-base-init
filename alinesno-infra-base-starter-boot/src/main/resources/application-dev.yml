@@ -51,7 +51,7 @@ alinesno.init.gen:
     authurl: "http://git.linesno.com"  # gitea认证路径
     clientId: ""  # gitea OAuth客户端ID
     clientSecrets: ""  # gitea OAuth客户端密钥
-    redirectUrl: "http://alinesno-initializr.beta.linesno.com/gitea/callback"  # gitea认证回调地址
+    redirectUrl: "http://alinesno-infra-base-starter-boot.beta.base.infra.linesno.com/api/infra/base/starter/bingGit/callback"  # gitea认证回调地址
     userInfo: "http://git.linesno.com/api/v1/user"  # gitea获取用户信息接口
 
   # Gitee配置信息
