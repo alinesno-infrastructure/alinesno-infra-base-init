@@ -371,12 +371,12 @@ function bingGit(row) {
       loading.close();
 
       if (res.code == 200) {
-        this.githubBingLink = res.data;
+        githubBingLink.value = res.data;
 
         // 配置githu链接
-        this.githubDialogVisible = true;
+        githubDialogVisible.value = true;
       } else {
-        this.msgSuccess("删除成功");
+        proxy.$modal.msgSuccess("删除成功");
       }
     }).catch(err => {
       loading.close();
