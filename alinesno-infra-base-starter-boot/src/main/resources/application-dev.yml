@@ -44,28 +44,28 @@ sa-token:
   sign:
     secret-key:
 
-# git配置
-alinesno:
-  base:
-    starter:
-      plugin:
-        git-plugin-url: http://xxxx
-      git:
-        gitlab:
-          client-id: xxx
-          client-secrets: xxx
-          auth-url: http://xxx
-          redirect-url: http://xxx
-          user-info : http://xxx
-        github:
-          client-id: xxx
-          client-secrets: xxx
-          auth-url: http://xxx
-          redirect-url: http://xxx
-          user-info : http://xxx
-        gitee:
-          client-id: xxx
-          client-secrets: xxx
-          auth-url: http://xxx
-          redirect-url: http://xxx
-          user-info : http://xxx
+# AIP Git 初始化配置信息
+alinesno.init.gen:
+  # Gitea配置信息
+  gitea:
+    authurl: "http://git.linesno.com"  # gitea认证路径
+    clientId: ""  # gitea OAuth客户端ID
+    clientSecrets: "Xm5YDrKgavJ5NzhPw0Fgi7W9zqHs_TWJ5jhS8-AalQQ="  # gitea OAuth客户端密钥
+    redirectUrl: "http://alinesno-initializr.beta.linesno.com/gitea/callback"  # gitea认证回调地址
+    userInfo: "http://git.linesno.com/api/v1/user"  # gitea获取用户信息接口
+
+  # Gitee配置信息
+  gitee:
+    authurl: "https://gitee.com"  # gitee认证路径
+    clientId: ""  # gitee OAuth客户端ID
+    clientSecrets: ""  # gitee OAuth客户端密钥
+    redirectUrl: "http://alinesno-initializr.beta.linesno.com/gitee/callback"  # gitee认证回调地址
+    userInfo: "https://gitee.com/api/v5/user"  # gitee获取用户信息接口
+
+  # GitHub配置信息
+  github:
+    authurl: "https://github.com"  # GitHub认证路径
+    clientId: ""  # GitHub OAuth客户端ID
+    clientSecrets: ""  # GitHub OAuth客户端密钥
+    redirectUrl: "http://alinesno-initializr.beta.linesno.com/github/callback"  # GitHub认证回调地址
+    userInfo: "https://api.github.com/user"  # GitHub获取用户信息接口

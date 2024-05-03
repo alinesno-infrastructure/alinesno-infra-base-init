@@ -70,4 +70,9 @@ public interface IGitInfoService extends IBaseService<GitInfoEntity> {
      */
     void uploadFunction(Map<String, String> map, ProjectInfoEntity project);
 
+    /**
+     * 初始化技术框架
+     * @param userId
+     */
+    void initAccountGitRepository(long userId);
 }

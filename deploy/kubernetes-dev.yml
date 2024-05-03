@@ -47,6 +47,9 @@ spec:
                 -Dspring.datasource.username=${DB_MYSQL_USRENAME}
                 -Dspring.datasource.password=${DB_MYSQL_PASSWORD}
                 -Dserver.port=8080
+
+                -Dalinesno.init.gen.gitee.clientId=${GITEE_CLIENT_ID}
+                -Dalinesno.init.gen.gitee.clientSecrets=${GITEE_CLIENT_SECRETS}
           ports:
             - name: http
               containerPort: 8080

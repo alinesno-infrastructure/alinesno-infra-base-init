@@ -33,7 +33,7 @@
 
         <el-table v-loading="loading" :data="PluginList" @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="50" align="center"/>
-          <el-table-column label="图标" align="center" with="80" key="status" v-if="columns[5].visible">
+          <el-table-column label="图标" align="center" width="80" key="status" v-if="columns[5].visible">
           </el-table-column>
 
           <!-- 业务字段-->

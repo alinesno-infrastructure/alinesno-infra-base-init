@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnComment;
 import com.gitee.sunchenbin.mybatis.actable.annotation.ColumnType;
 import com.gitee.sunchenbin.mybatis.actable.annotation.TableComment;
+import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -37,7 +38,7 @@ public class GitInfoEntity extends InfraBaseEntity {
     /**
      * 仓库图标
      */
-    @ColumnType(length = 100)
+    @ColumnType(MySqlTypeConstant.TEXT)
     @ColumnComment("仓库图标")
     @TableField("git_icon")
     private String gitIcon;

@@ -21,7 +21,60 @@ var managerUrl = {
     removeUrl: prefix + "delete" ,
     exportUrl: prefix + "exportExcel",
     changeField: prefix + "changeField",
-    downloadfile: prefix + "downloadfile"
+    downloadfile: prefix + "downloadfile" , 
+}
+
+// 操作接口
+var gitOpsPrefix = '/api/infra/base/starter/gitOperation/' ;
+var gitOpsManagerUrl = {
+  unBing: gitOpsPrefix + "unBing",
+  bingFormGitlab: gitOpsPrefix + "bingFormGitlab",
+  getGitGroups: gitOpsPrefix + "getGitGroups",
+  gitGroupsDatatables: gitOpsPrefix + "gitGroupsDatatables",
+  getGithubAuthurl: gitOpsPrefix + "getGithubAuthurl",
+}
+
+// 获取应用列表
+export function unBing(id , gitType) {
+    return request({
+        url: gitOpsManagerUrl.unBing + "?id=" + id + "&gitType=" + gitType,
+        method: 'get',
+    })
+}
+
+// 获取github绑定链接
+export function getGithubAuthurl(gitType){
+    return request({
+        url: gitOpsManagerUrl.getGithubAuthurl + "?gitType=" + gitType, 
+        method: 'get',
+    })
+}
+
+// 保存gitlab绑定
+export function bingFormGitlab(data) {
+    return request({
+        url: gitOpsManagerUrl.bingFormGitlab,
+        method: 'put',
+        data: data
+    })
+}
+
+// 获取git分组
+export function getGitGroups(gitId) {
+  return request({
+    url: managerUrl.getGitGroups + "?id=" + gitId,
+    method: 'get',
+  })
+}
+
+// 查询【git分组】列表
+export function gitGroupsDatatables(query , data ,selectGit) {
+  return request({
+    url: managerUrl.gitGroupsDatatables + "?selectGit=" + selectGit ,
+    method: 'post',
+    params: query ,
+    data: data
+  })
 }
 
 // 查询仓库列表

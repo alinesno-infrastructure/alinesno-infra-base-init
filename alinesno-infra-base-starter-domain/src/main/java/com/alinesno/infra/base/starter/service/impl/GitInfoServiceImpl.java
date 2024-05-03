@@ -6,6 +6,7 @@ import com.alinesno.infra.base.starter.bean.GiteeBean;
 import com.alinesno.infra.base.starter.entity.GitInfoEntity;
 import com.alinesno.infra.base.starter.entity.ProjectInfoEntity;
 import com.alinesno.infra.base.starter.enums.BingGitEnum;
+import com.alinesno.infra.base.starter.enums.GitIconEnums;
 import com.alinesno.infra.base.starter.enums.GitRepositoryEnum;
 import com.alinesno.infra.base.starter.mapper.GitInfoMapper;
 import com.alinesno.infra.base.starter.service.IGitInfoService;
@@ -19,7 +20,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.lang.exception.RpcServiceRuntimeException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +34,8 @@ import java.util.Map;
 @Slf4j
 @Service
 public class GitInfoServiceImpl extends IBaseServiceImpl<GitInfoEntity , GitInfoMapper> implements IGitInfoService {
+
+    public static final int INNER_GIT = 1 ;
 
     @Override
     public void bingGithub(long accountId, String githubAccessToken, JSONObject userInfo) {
@@ -238,5 +243,54 @@ public class GitInfoServiceImpl extends IBaseServiceImpl<GitInfoEntity , GitInfo
 
         }
 
+    }
+
+    @Override
+    public void initAccountGitRepository(long userId) {
+
+        List<GitInfoEntity> listGit = new ArrayList<>() ;
+
+        GitInfoEntity gitlab = new GitInfoEntity();
+        gitlab.setGitName(GitRepositoryEnum.GITLAB.getName());
+        gitlab.setGitIcon(GitIconEnums.GITLAB.getIconBase64());
+        gitlab.setFieldProp("GitLab 是目前主流的企业内部 Git 代码托管解决方案，您可以绑定公网的GitLab代码仓库，实现丰富的 Git 代码管理功能");
+        gitlab.setGitType(GitRepositoryEnum.GITLAB.getName());
+        gitlab.setInnerGit(INNER_GIT) ;
+        gitlab.setHasBing(BingGitEnum.NOT_BING.getV());
+        gitlab.setOperatorId(userId);
+
+        GitInfoEntity gitee = new GitInfoEntity();
+        gitee.setGitName(GitRepositoryEnum.GITEE.getName());
+        gitee.setGitIcon(GitIconEnums.GITEE.getIconBase64());
+        gitee.setFieldProp("gitee代码托管·协作开发平台，开发者超过 800 万，托管项目超过 2000 万，汇聚几乎所有本土原创开源项目");
+        gitee.setGitType(GitRepositoryEnum.GITEE.getName());
+        gitee.setInnerGit(INNER_GIT) ;
+        gitee.setHasBing(BingGitEnum.NOT_BING.getV());
+        gitee.setOperatorId(userId);
+
+//		BuildGitEntity github = new BuildGitEntity();
+//		github.setGitName(GitRepositoryEnum.GITHUB.getName());
+//		github.setGitIcon(GitRepositoryEnum.GITHUB.getName());
+//		github.setFieldProp("Github除了Git代码仓库托管及基本的Web管理界面以外，还提供了订阅、讨论组、文本渲染、在线文件编辑器、协作图谱（报表）、代码片段分享（Gist）等功能");
+//		github.setGitType(GitRepositoryEnum.GITHUB.getName());
+//		github.setInnerGit(INNER_GIT) ;
+//		github.setHasBing(BingGitEnum.NOT_BING.getV());
+//		github.setOperatorId(userId);
+
+        GitInfoEntity gitea = new GitInfoEntity();
+        gitea.setGitName(GitRepositoryEnum.GITEA.getName());
+        gitea.setGitIcon(GitIconEnums.GITEA.getIconBase64());
+        gitea.setFieldProp("平台内置的一个简单git管理工具，一款极易搭建的自助Git服务，Git来有效管理您的项目");
+        gitea.setGitType(GitRepositoryEnum.GITEA.getName());
+        gitea.setInnerGit(INNER_GIT) ;
+        gitea.setHasBing(BingGitEnum.NOT_BING.getV());
+        gitea.setOperatorId(userId);
+
+        listGit.add(gitlab) ;
+        listGit.add(gitee) ;
+//		listGit.add(github) ;
+        listGit.add(gitea) ;
+
+        saveBatch(listGit);
     }
 }

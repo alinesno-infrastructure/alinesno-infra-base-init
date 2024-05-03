@@ -1,9 +1,19 @@
 package com.alinesno.infra.base.starter.git.params;
 
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+/**
+ * 获取git参数
+ */
+@Slf4j
 @Component
 public class GitParamMap {
+
+    @Resource
+    private Environment environment;
 
     /**
      * 通过传递configKey获取到configValue
@@ -11,14 +21,11 @@ public class GitParamMap {
      * @return 配置值
      */
     public String getConfigValueByKey(String configKey) {
-        // 遍历枚举类中的所有枚举值
-        for (ConfigEnum configEnum : ConfigEnum.values()) {
-            // 如果传入的configKey与枚举值中的configKey相同，则返回对应的configValue
-            if (configEnum.getConfigKey().equals(configKey)) {
-                return configEnum.getConfigValue();
-            }
-        }
-        // 如果未找到对应配置键的配置值，则返回null或者抛出异常，取决于你的业务需求
-        return null;
+
+        String configValue = environment.getProperty(configKey , "") ;
+
+        log.debug("configKey = {} , configValue = {}" , configKey , configValue);
+
+        return configValue ;
     }
 }

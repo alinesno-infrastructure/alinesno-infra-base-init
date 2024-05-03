@@ -40,9 +40,6 @@ public class GitInfoController extends BaseController<GitInfoEntity, IGitInfoSer
 	@Autowired
 	private IGitInfoService gitInfoService;
 
-	@Autowired
-	private IGitInfoService IGitInfoService;
-
 	/**
 	 * 获取仓库信息的DataTables数据
 	 *
@@ -55,12 +52,23 @@ public class GitInfoController extends BaseController<GitInfoEntity, IGitInfoSer
 	@PostMapping("/datatables")
 	public TableDataInfo datatables(HttpServletRequest request, Model model, DatatablesPageBean page) {
 		log.debug("page = {}", ToStringBuilder.reflectionToString(page));
-		return this.toPage(model, getFeign(), page);
+
+		long userId = CurrentAccountJwt.getUserId();
+		QueryWrapper<GitInfoEntity> wrapper = new QueryWrapper<>();
+		wrapper.eq(FieldConstants.OPERATOR_ID, userId);
+		long countGitRepository = gitInfoService.count(wrapper);
+
+		// 初始化用户仓库
+		if (countGitRepository == 0) {
+			gitInfoService.initAccountGitRepository(CurrentAccountJwt.getUserId());
+		}
+
+        return this.toPage(model, this.getFeign(), page);
 	}
 
 	@Override
 	public IGitInfoService getFeign() {
-		return IGitInfoService;
+		return gitInfoService;
 	}
 
 	@ResponseBody

@@ -203,6 +203,9 @@ jobs:
 
             export INFRA_DEV_DOMAIN=${{ secrets.INFRA_BETA_BASE_DOMAIN }}
 
+            export GITEE_CLIENT_ID=${{ secrets.GIT_GITEE_CLIENT_ID }}
+            export GITEE_CLIENT_SECRETS=${{ secrets.GIT_GITEE_CLIENT_SECRETS }}
+
             export DB_MYSQL_URL=${{ secrets.DEV_DB_MYSQL_URL }}
             export DB_MYSQL_USRENAME=${{ secrets.DEV_DB_MYSQL_USRENAME }}
             export DB_MYSQL_PASSWORD=${{ secrets.DEV_DB_MYSQL_PASSWORD }}
