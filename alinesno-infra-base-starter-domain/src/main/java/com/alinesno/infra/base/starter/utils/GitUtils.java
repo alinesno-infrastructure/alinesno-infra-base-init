@@ -9,8 +9,8 @@ import org.eclipse.jgit.api.errors.TransportException;
 
 /**
  * Gitlab工具类
- * @author LuoAnDong
- * @since 2023年2月13日 上午6:23:43
+ * @author luoxiaodong
+ * @since 1.0.0
  */
 public class GitUtils {
 

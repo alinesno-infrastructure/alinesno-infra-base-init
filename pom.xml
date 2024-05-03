@@ -26,6 +26,7 @@
         <module>alinesno-infra-base-starter-domain</module>  <!-- 领域服务 -->
         <module>alinesno-infra-base-starter-adapter</module> <!-- 适配层 -->
         <module>alinesno-infra-base-starter-gateway</module>  <!-- 接口服务 -->
+        <module>alinesno-infra-base-starter-pipeline</module>  <!-- 流水线工具 -->
         <module>alinesno-infra-base-starter-git</module>  <!-- 接口服务 -->
         <module>alinesno-infra-base-starter-plugin</module>  <!-- 接口服务 -->
         <module>alinesno-infra-base-starter-client</module>  <!-- 对外引用 -->
