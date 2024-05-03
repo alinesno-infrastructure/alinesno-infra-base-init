@@ -59,7 +59,7 @@ alinesno.init.gen:
     authurl: "https://gitee.com"  # gitee认证路径
     clientId: ""  # gitee OAuth客户端ID
     clientSecrets: ""  # gitee OAuth客户端密钥
-    redirectUrl: "http://alinesno-initializr.beta.linesno.com/gitee/callback"  # gitee认证回调地址
+    redirectUrl: "http://alinesno-infra-base-starter-boot.beta.base.infra.linesno.com/api/infra/base/starter/bingGit/callback"  # gitea认证回调地址
     userInfo: "https://gitee.com/api/v5/user"  # gitee获取用户信息接口
 
   # GitHub配置信息
@@ -67,5 +67,5 @@ alinesno.init.gen:
     authurl: "https://github.com"  # GitHub认证路径
     clientId: ""  # GitHub OAuth客户端ID
     clientSecrets: ""  # GitHub OAuth客户端密钥
-    redirectUrl: "http://alinesno-initializr.beta.linesno.com/github/callback"  # GitHub认证回调地址
+    redirectUrl: "http://alinesno-infra-base-starter-boot.beta.base.infra.linesno.com/api/infra/base/starter/bingGit/callback"  # gitea认证回调地址
     userInfo: "https://api.github.com/user"  # GitHub获取用户信息接口
