@@ -165,7 +165,7 @@ export default {
               'condition[dbName|like]': null,
               dbName: null,
               dbUrl: null,
-              dbPort: 3306,
+              dbPort: null,
               dbUsername: null,
               dbPasswd: null,
               dbType: null,
